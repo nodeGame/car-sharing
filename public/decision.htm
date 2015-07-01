@@ -1,0 +1,25 @@
+<!doctype html>
+<title>Game</title>
+<link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+<body>
+  <div id="container" style="font-size: 20px">
+    <h2>Choose your transportation means and time of departure</h2>
+    
+    <table>
+      <tr>
+        <td id="td-bus" onclick="parent.node.events.step.emit('decision', 'bus')">
+          <a href="#">BUS
+            <img src="imgs/bus.png" alt="Bus" />
+          </a>
+        </td>
+        <td id="td-car" onclick="parent.node.events.step.emit('decision', 'car')">
+          <a href="#">CAR
+            <img src="imgs/car.png" alt="Car Sharing" />
+          </a>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    
+  </div>
+</body>

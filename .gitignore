@@ -1,0 +1,17 @@
+*.nddb
+_*
+Session.vim
+*.tar.gz
+~*
+*~
+*.tar.gz
+
+\#*
+.\#*
+*.swp
+
+server/csv
+server/data
+
+data
+node_modules
