@@ -7,8 +7,6 @@
  * ---
  */
 var ngc = require('nodegame-client');
-var stepRules = ngc.stepRules;
-var constants = ngc.constants;
 var J = require('JSUS').JSUS;
 var counter = 0;
 
@@ -138,17 +136,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         // Something to do.
 
-    });
-
-    // Default options.
-
-    // Wait for other players to be DONE and then step.
-    stager.setDefaultStepRule(stepRules.OTHERS_SYNC_STEP);
-
-    // Send the command to step to other players as well.
-    stager.setDefaultProperties({
-        publishLevel: 0,
-        syncStepping: true
     });
 
     // Here we group together the definition of the game logic.

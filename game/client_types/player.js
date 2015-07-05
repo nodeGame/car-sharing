@@ -12,8 +12,6 @@
  */
 var ngc = require('nodegame-client');
 var stepRules = ngc.stepRules;
-var constants = ngc.constants;
-var publishLevels = constants.publishLevels;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
@@ -111,7 +109,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             W.loadFrame('results.htm', function() {
                 var choice, departure, arrivalExpected, arrivalActual, payoff;
-                var chosenBus, chosenCar, avgDepartureCar;
+                var chosenBus, chosenCar, avgDepartureCar, button;
 
                 chosenBus = W.getElementById('chosen-bus');
                 chosenCar = W.getElementById('chosen-car');
@@ -123,6 +121,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 arrivalActual = W.getElementById('arrival-actual');
                 payoff = W.getElementById('payoff');
 
+                button = W.getElementById('continue');
+                
                 node.on.data('results', function(msg) {
                     var results;
                     var expectedTime, actualTime;
@@ -150,28 +150,25 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     payoff.innerHTML = results.p
 
+                    button.disabled = false;
+                    button.onclick = function() {
+                        node.done();
+                    };
+
                 });
             });
         },
         timer: settings.timer.results
     });
 
-stager.extendStep('end', {
-    //frame: 'end.htm',
-    cb: function() {
-        W.loadFrame('end.htm');
-    }
-});
+    stager.extendStep('end', {
+        //frame: 'end.htm',
+        cb: function() {
+            W.loadFrame('end.htm');
+        }
+    });
 
-// Players are waiting for the server command to step.
-stager.setDefaultStepRule(stepRules.WAIT);
-
-// Reduce overhead of exchanged messages.
-stager.setDefaultProperties({
-    publishLevel: publishLevels.REGULAR,
-});
-
-game = setup;
-game.plot = stager.getState();
-return game;
+    game = setup;
+    game.plot = stager.getState();
+    return game;
 };
