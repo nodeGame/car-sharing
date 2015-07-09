@@ -1,0 +1,42 @@
+/* Car-sharing game CSS */
+
+table#table-decision {
+    margin-top: 20px;
+}
+
+table#table-decision td {
+    width: 350px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: top;
+}
+
+table#table-decision img {
+    width: 250px;
+    height: 250px;
+}
+
+div#car-departure-div {
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+div.departure-text {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+div#car-slider {
+    margin-bottom: 15px;
+    margin-left: 8px;
+    width: 95%;
+}
+
+div#div-button {
+    margin-top: 10px;
+    text-align: center;
+}
+
+td.td-selected {
+    background: yellow;
+}

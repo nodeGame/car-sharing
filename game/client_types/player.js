@@ -23,17 +23,40 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         var header, frame;
 
-        this.randomDecision = function(offer, submitOffer) {
+        node.game.lastDepartureTime = null;
+        node.game.lastDecision = null;
+
+        this.randomDecision = function() {
             var decision, departure;
             if (Math.random(0,1) < 0.5) {
-                decision = 'car';                
+                decision = 'car';
                 departure = JSUS.randomInt(-1,60);
             }
             else {
                 decision = 'bus';
                 departure = 0;
-            }            
+            }
             node.emit('decision', decision, departure);
+        };
+
+        this.decisionMade = function(decision) {
+            var td, otherTd, button;
+            node.game.lastDecision = decision;
+            if (decision === 'car') {
+                td = W.getElementById('td-car');
+                otherTd = W.getElementById('td-bus');
+            }
+            else {
+                td = W.getElementById('td-bus');
+                otherTd = W.getElementById('td-car');
+                // Departure time is changed by the slider for car.
+                node.game.lastDepartureTime = 0;
+            }
+
+            td.className = 'td-selected';
+            otherTd.className = '';
+            button = W.getElementById('decision');
+            button.disabled = false;
         };
 
         // Setup page: header + frame.
@@ -79,6 +102,34 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('decision', {
         cb: function() {
             W.loadFrame('decision.htm', function() {
+                var order, tdBus, tdCar, tr;
+                
+                tdBus = W.getElementById('td-bus');
+                tdCar = W.getElementById('td-car');
+
+                // Shuffle tds.
+                if (Math.random() < 0.5) {
+                    order = 1;
+                    tr = W.getElementById('tr-decision');
+                    tr.appendChild(tdBus);
+                }
+                else {
+                    order = 0;
+                }
+
+                // Reset last decisions.
+                node.game.lastDepartureTime = null;
+                node.game.lastDecision = null;
+
+                W.getElementById('decision').onclick = function() {
+
+                    // TODO: if players clicks car, slider, bus, car
+                    // the value of lastDepartureTime might be wrong.
+
+                    node.events.ee.step.emit('decision',
+                                             node.game.lastDecision,
+                                             node.game.lastDepartureTime);
+                };
 
                 // Listen on click event.
                 node.once('decision', function(decision, departure) {
@@ -87,7 +138,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.set('decision', {
                         timestamp:  node.timer.getTimeSince('stepping'),
                         time: departure || 0,
-                        decision: decision
+                        decision: decision,
+                        order: order
                     });
 
                     // Mark the end of the round.
@@ -122,11 +174,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 payoff = W.getElementById('payoff');
 
                 button = W.getElementById('continue');
-                
+
                 node.on.data('results', function(msg) {
                     var results;
                     var expectedTime, actualTime;
-                    
+
                     results = msg.data;
                     console.log('RESULTS ', results);
 

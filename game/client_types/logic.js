@@ -38,7 +38,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         };
 
         this.computePayoff = function(e) {
-            e.payoff = J.randomInt(-1, 10);
+            var payoff, settings;
+            if (e.decision === 'car') {
+                if (e.gotCar) {
+                    payoff = node.game.settings.carY +
+                        (node.game.settings.SLOPE_PAYOFF * e.value.departure);
+                }
+                else {
+                    payoff = settings.busY - 
+                        (node.game.settings.SLOPE_PAYOFF * e.value.departure);
+                }
+            }
+            else {
+                payoff = node.game.settings.busY;
+            }
+            e.payoff = payoff;
         };
 
         this.getResults = function(stage) {

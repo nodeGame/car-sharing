@@ -26,10 +26,17 @@ module.exports = {
     // Numnber of game rounds repetitions.
     REPEAT: 20,
 
+    // Maximum benefit per round
+    // for arriving to destination exactly on time with 1h travel time
+    MAX_PAYOFF: 1,
+
+    // Slope of the payoff curve.
+    SLOPE_PAYOFF: 1,
+
     timer: {
     
         instructions: 600000,
-        decision: 30000,
+        decision: 300000,
         results: 30000
 
     },
@@ -41,75 +48,99 @@ module.exports = {
         noinfo_car25_p6040: {
             info: false,
             carLevel: 0.25,
+            carY: 40,
+            busY: 60,
             payoff: '60/40'
         },
 
         info_car25_p6040: {
             info: true,
             carLevel: 0.25,
+            carY: 40,
+            busY: 60,
             payoff: '60/40'
         },
 
         noinfo_car50_p6040: {
             info: false,
             carLevel: 0.5,
+            carY: 40,
+            busY: 60,
             payoff: '60/40'
         },
 
         info_car50_p6040: {
             info: true,
             carLevel: 0.5,
+            carY: 40,
+            busY: 60,
             payoff: '60/40'
         },
 
         noinfo_car75_p6040: {
             info: false,
             carLevel: 0.75,
+            carY: 40,
+            busY: 60,
             payoff: '60/40'
         },
 
         info_car75_p6040: {
             info: true,
             carLevel: 0.75,
+            carY: 40,
+            busY: 60,
             payoff: '60/40'
         },
 
 ////
 
-        noinfo_car25_p3070: {
+        noinfo_car25_p7030: {
             info: false,
             carLevel: 0.25,
-            payoff: '30/70'
+            carY: 30,
+            busY: 70,
+            payoff: '70/30'
         },
 
-        info_car25_p3070: {
+        info_car25_p7030: {
             info: true,
             carLevel: 0.25,
-            payoff: '30/70'
+            carY: 30,
+            busY: 70,
+            payoff: '70/30'
         },
 
-        noinfo_car50_p3070: {
+        noinfo_car50_p7030: {
             info: false,
             carLevel: 0.5,
-            payoff: '30/70'
+            carY: 30,
+            busY: 70,
+            payoff: '70/30'
         },
 
-        info_car50_p3070: {
+        info_car50_p7030: {
             info: true,
             carLevel: 0.5,
-            payoff: '30/70'
+            carY: 30,
+            busY: 70,
+            payoff: '70/30'
         },
 
-        noinfo_car75_p3070: {
+        noinfo_car75_p7030: {
             info: false,
             carLevel: 0.75,
-            payoff: '30/70'
+            carY: 30,
+            busY: 70,
+            payoff: '70/30'
         },
 
-        info_car75_p3070: {
+        info_car75_p7030: {
             info: true,
             carLevel: 0.75,
-            payoff: '30/70'
+            carY: 30,
+            busY: 70,
+            payoff: '70/30'
         },
 
 ///
@@ -118,36 +149,48 @@ module.exports = {
         noinfo_car25_p6030: {
             info: false,
             carLevel: 0.25,
+            carY: 30,
+            busY: 60,
             payoff: '60/30'
         },
 
         info_car25_p6030: {
             info: true,
             carLevel: 0.25,
+            carY: 30,
+            busY: 60,
             payoff: '60/30'
         },
 
         noinfo_car50_p6030: {
             info: false,
             carLevel: 0.5,
+            carY: 30,
+            busY: 60,
             payoff: '60/30'
         },
 
         info_car50_p6030: {
             info: true,
             carLevel: 0.5,
+            carY: 30,
+            busY: 60,
             payoff: '60/30'
         },
 
         noinfo_car75_p6030: {
             info: false,
             carLevel: 0.75,
+            carY: 30,
+            busY: 60,
             payoff: '60/30'
         },
 
         info_car75_p6030: {
             info: true,
             carLevel: 0.75,
+            carY: 30,
+            busY: 60,
             payoff: '60/30'
         },
 
@@ -157,36 +200,48 @@ module.exports = {
         noinfo_car25_p7040: {
             info: false,
             carLevel: 0.25,
+            carY: 40,
+            busY: 70,
             payoff: '70/40'
         },
 
         info_car25_p7040: {
             info: true,
             carLevel: 0.25,
+            carY: 40,
+            busY: 70,
             payoff: '70/40'
         },
 
         noinfo_car50_p7040: {
             info: false,
             carLevel: 0.5,
+            carY: 40,
+            busY: 70,
             payoff: '70/40'
         },
 
         info_car50_p7040: {
             info: true,
             carLevel: 0.5,
+            carY: 40,
+            busY: 70,
             payoff: '70/40'
         },
 
         noinfo_car75_p7040: {
             info: false,
             carLevel: 0.75,
+            carY: 40,
+            busY: 70,
             payoff: '70/40'
         },
 
         info_car75_p7040: {
             info: true,
             carLevel: 0.75,
+            carY: 40,
+            busY: 70,
             payoff: '70/40'
         },
 
