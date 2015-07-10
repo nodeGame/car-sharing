@@ -33,8 +33,10 @@ div#car-slider {
 }
 
 div#div-button {
+    clear: both;
     margin-top: 10px;
     text-align: center;
+    border: 10px;
 }
 
 td.td-selected {
