@@ -1,21 +1,27 @@
 <!doctype html>
 <title>Game</title>
 <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" href="css/style.css" />
 <body>
-  <div id="container" style="font-size: 20px">
+  <div id="container">
     <h2>Results</h2>
     
     <p id="summary">
-      <span id="chosen-bus">0</span> players selected the bus option
-      and <span id="chosen-car">0</span> players selected the car
-      option, leaving on average
-      around <span id="average-car-departure">NA</span>.
+      <span class="td-title">Summary</span>
+      <span id="chosen-bus">0</span> player/s selected the bus option.
+      <br/>
+      <span id="chosen-car">0</span> player/s selected the car
+      option.
+      <br/>
+       Average departure time of cars <span id="average-car-departure">NA</span>.
     </p>
 
+    <br/><br/>
 
-    <table>
+    <span class="td-title">Your Choice</span>
+    <table id="table-results">
       <tr>
-        <td>Your choice:</td><td id="choice">Bus / Car</td>
+        <td>Transportation:</td><td id="choice">Bus / Car</td>
       </tr>
 
       <tr>

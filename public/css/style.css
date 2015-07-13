@@ -2,6 +2,7 @@
 
 div#container {
     text-align: center;
+    font-size: 20px;
 }
 
 table#table-decision {
@@ -65,5 +66,30 @@ span.td-title {
     display: block;
     margin-bottom: 20px;
     font-size: 30px;
+    font-weight: bold;
+}
+
+/* Results */
+
+table#table-results {
+    margin: 0 auto;
+}
+
+table#table-results tr {
+    border-bottom: 1px solid #CCC;
+}
+
+table#table-results td {
+    width: 250px;
+    text-align: center;
+    vertical-align: top;
+    padding: 10px 2px;
+}
+
+p#summary {
+    margin-top: 50px;
+}
+
+span#chosen-bus, span#chosen-car, span#average-car-departure {
     font-weight: bold;
 }

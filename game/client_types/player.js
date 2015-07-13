@@ -187,6 +187,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 node.on.data('results', function(msg) {
                     var results;
+                    var f = node.game.formatDepartureTime;
                     var expectedTime, actualTime;
 
                     results = msg.data;
@@ -194,23 +195,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     chosenBus.innerHTML = results.global.totBus;
                     chosenCar.innerHTML = results.global.totCar;
-                    avgDepartureCar.innerHTML = results.global.avgDepartureCar;
+                    avgDepartureCar.innerHTML = 
+                        f(results.global.avgDepartureCar);
 
                     choice.innerHTML = results.decision;
-                    departure.innerHTML = results.departure;
+                    departure.innerHTML = f(results.departure);
 
                     if (results.decision === 'bus') {
                         expectedTime = actualTime = '12:00';
                     }
                     else {
-                        execptedTime = 'AA';
+                        expected = 'AA';
                         actualTime = 'BB';
                     }
 
                     arrivalExpected.innerHTML = expectedTime;
                     arrivalActual.innerHTML = actualTime;
 
-                    payoff.innerHTML = results.p
+                    payoff.innerHTML = results.payoff;
 
                     button.disabled = false;
                     button.onclick = function() {
