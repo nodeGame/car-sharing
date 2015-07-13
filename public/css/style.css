@@ -5,7 +5,7 @@ div#container {
 }
 
 table#table-decision {
-    border-spacing: 10px;
+    border-spacing: 40px;
     border-collapse: separate;
     margin-top: 20px;
     margin: 0 auto;
@@ -18,7 +18,7 @@ table#table-decision td {
     vertical-align: top;
     padding: 20px;
     cursor: pointer;
-    border: 1px solid #CCC;
+    border: 5px solid #CCC;
 }
 
 table#table-decision td:hover {
@@ -33,6 +33,10 @@ table#table-decision img {
 div#car-departure-div {
     margin-top: 15px;
     font-size: 15px;
+}
+
+span#car-departure {
+    font-weight: bold;
 }
 
 div.departure-text {
@@ -61,4 +65,5 @@ span.td-title {
     display: block;
     margin-bottom: 20px;
     font-size: 30px;
+    font-weight: bold;
 }

@@ -94,13 +94,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             return results;
         };
 
-        this.sendResults = function(stage, results) {
+        this.sendResults = function(stage, globalResults) {
             node.game.memory.stage[stage].each(function(e) {
                 node.say('results', e.player, {
-                    global: results,
-                    decision: e.decision,
+                    global: globalResults,
+                    decision: e.value.decision,
                     gotCar: e.gotCar,
-                    departure: e.departure,
+                    departure: e.value.departureTime,
                     payoff: e.payoff
                 });
             });

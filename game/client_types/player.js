@@ -126,21 +126,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     // TODO: if players clicks car, slider, bus, car
                     // the value of lastDepartureTime might be wrong.
 
-                    node.events.ee.step.emit('decision',
-                                             node.game.lastDecision,
-                                             node.game.lastDepartureTime);
-                };
-
-                // Listen on click event.
-                node.once('decision', function(decision, departure) {
-
                     // Mark the end of the round, and send results to server.
                     node.done({
-                        departureTime: departure || 0,
-                        decision: decision,
+                        departureTime: node.game.lastDepartureTime || 0,
+                        decision: node.game.lastDecision,
                         order: order
                     });
-                });
+                };
             });
 
         },
@@ -177,7 +169,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     results = msg.data;
                     console.log('RESULTS ', results);
-
+debugger
                     chosenBus.innerHTML = results.global.totBus;
                     chosenCar.innerHTML = results.global.totCar;
                     avgDepartureCar.innerHTML = results.global.avgDepartureCar;

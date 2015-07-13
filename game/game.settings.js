@@ -37,7 +37,7 @@ module.exports = {
     
         instructions: 600000,
         decision: 300000,
-        results: 30000
+        results: 300000
 
     },
 
