@@ -136,7 +136,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     // Mark the end of the round, and send results to server.
                     node.done({
-                        time: departure || 0,
+                        departureTime: departure || 0,
                         decision: decision,
                         order: order
                     });

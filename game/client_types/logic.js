@@ -77,9 +77,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.memory.stage[stage].sort();
 
             node.game.memory.stage[stage].each(function(e) {
-                if (e.decision === 'car') {
+                if (e.value.decision === 'car') {
                     results.totCar++;
-                    results.avgDepartureCar += e.departure;
+                    results.avgDepartureCar += e.value.departureTime;
                     e.gotCar = carCounter++ < carLimit ? true : false;
                 }
                 else {
@@ -88,9 +88,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 }
                 node.game.computePayoff(e);
             });
-
             results.avgDepartureCar =
-                (results.avgDepartureCar / results.totCar).toFixed(2);
+                Math.floor(results.avgDepartureCar / results.totCar);
 
             return results;
         };
