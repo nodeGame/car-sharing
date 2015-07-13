@@ -26,6 +26,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         node.game.lastDepartureTime = null;
         node.game.lastDecision = null;
 
+        this.formatDepartureTime = function(time) {
+            time = time || 0;
+            if (time === 60) time = '11:00';
+            else if (time < 10) time = '10:0' + time;
+            else time = '10:' + time;
+            return time;
+        }
+
         this.randomDecision = function() {
             var decision, departure;
             if (Math.random(0,1) < 0.5) {
@@ -49,14 +57,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             else {
                 td = W.getElementById('td-bus');
                 otherTd = W.getElementById('td-car');
-                // Departure time is changed by the slider for car.
-                node.game.lastDepartureTime = 0;
             }
-
+            // Departure time is changed by the slider for car.
             td.className = 'td-selected';
             otherTd.className = '';
             button = W.getElementById('decision');
-            button.disabled = false;
+            this.updateDecisionButton();
+        };
+
+        this.updateDecisionButton = function() {
+            var button, decision;
+            button = W.getElementById('decision');
+            button.disabled = false;            
+            if (node.game.lastDecision === 'car') {
+                button.value = 'I will take the ' +
+                    node.game.lastDecision 
+                    + ' and leave at ' + 
+                    this.formatDepartureTime(node.game.lastDepartureTime);
+            }
+            else {
+                button.value = 'I will take the bus and leave at 10:00';
+            }
         };
 
         // Setup page: header + frame.
@@ -123,8 +144,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 W.getElementById('decision').onclick = function() {
 
-                    // TODO: if players clicks car, slider, bus, car
-                    // the value of lastDepartureTime might be wrong.
+                    if (node.game.lastDecision === 'bus') {
+                        node.game.lastDepartureTime = 0;
+                    }
 
                     // Mark the end of the round, and send results to server.
                     node.done({
@@ -169,7 +191,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     results = msg.data;
                     console.log('RESULTS ', results);
-debugger
+
                     chosenBus.innerHTML = results.global.totBus;
                     chosenCar.innerHTML = results.global.totCar;
                     avgDepartureCar.innerHTML = results.global.avgDepartureCar;

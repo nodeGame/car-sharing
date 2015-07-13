@@ -29,7 +29,7 @@
           </a>
           <br/>
           <br/>
-          <div class="departure-text"> Move slider to choose departure time <br/> (10:00 - 11:00): </div>
+          <div class="departure-text"> Departure time (10:00 - 11:00) </div>
           <div id="car-slider"></div>
           <div id="car-departure-div">Current departure time: <span id="car-departure">10:00</span></div>
         </td>
@@ -46,12 +46,16 @@
       max: 60,
       value: 0,
       slide: function(event, ui) {
-          var chosen = ui.value;
-          parent.node.game.lastDepartureTime = chosen;
-          if (chosen === 60) chosen = '11:00';
-          else if (chosen < 10) chosen = '10:0' + chosen;
-          else chosen = '10:' + chosen;
+          var chosen, game;
+          game = parent.node.game;
+          chosen = ui.value;
+          game.lastDepartureTime = chosen;
+          chosen = game.formatDepartureTime(chosen);
           document.getElementById('car-departure').innerHTML = chosen;
+          if (!game.lastDecision || game.lastDecision === 'bus') {
+              game.decisionMade('car');
+          }
+          game.updateDecisionButton();
       }
     });
   });
