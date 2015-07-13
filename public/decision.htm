@@ -10,11 +10,12 @@
 <body>
   <div id="container" style="font-size: 20px">
     <h2>Choose your transportation means and time of departure</h2>
-    
+    Click on the box, and adjust the time of departure as necessary<br/>
     <table id="table-decision">
       <tr id="tr-decision">
         <td id="td-bus" onclick="parent.node.game.decisionMade('bus')">
-          <a href="#">
+          <span class="td-title">Bus</span>
+          <a href="#" alt="Bus">
             <img src="imgs/bus.png" alt="Bus" />
           </a>
           <br/>
@@ -22,7 +23,8 @@
           <div class="departure-text"> Departure time 10:00 am </div>
         </td>
         <td id="td-car" onclick="parent.node.game.decisionMade('car')">
-          <a href="#">
+          <span class="td-title">Car</span>
+          <a href="#" alt="Bus">
             <img src="imgs/car.png" alt="Car Sharing" />
           </a>
           <br/>

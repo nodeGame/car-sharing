@@ -26,6 +26,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         node.on('in.set.DATA', function(o) {
             o.treatment = treatmentName;
             o.session = node.nodename;
+            console.log('in.set.DATA ', o);
         });
 
         // Sort: car first, and cars are sorted by departure time.
@@ -42,11 +43,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             if (e.decision === 'car') {
                 if (e.gotCar) {
                     payoff = node.game.settings.carY +
-                        (node.game.settings.SLOPE_PAYOFF * e.value.departure);
+                        (node.game.settings.SLOPE_PAYOFF * e.departure);
                 }
                 else {
                     payoff = settings.busY - 
-                        (node.game.settings.SLOPE_PAYOFF * e.value.departure);
+                        (node.game.settings.SLOPE_PAYOFF * e.departure);
                 }
             }
             else {
@@ -78,7 +79,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.memory.stage[stage].each(function(e) {
                 if (e.decision === 'car') {
                     results.totCar++;
-                    results.avgDepartureCar += e.value.departure;
+                    results.avgDepartureCar += e.departure;
                     e.gotCar = carCounter++ < carLimit ? true : false;
                 }
                 else {
@@ -98,9 +99,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.memory.stage[stage].each(function(e) {
                 node.say('results', e.player, {
                     global: results,
-                    decision: e.value.decision,
+                    decision: e.decision,
                     gotCar: e.gotCar,
-                    departure: e.value.departure,
+                    departure: e.departure,
                     payoff: e.payoff
                 });
             });
@@ -113,8 +114,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);
 
-            node.on.data('decision', function(msg) {
-                console.log(msg.from, msg.data);
+            node.on.data('done', function(msg) {
+                console.log('done ', msg.from, msg.data);
             });
 
         }

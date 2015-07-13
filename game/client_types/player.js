@@ -134,16 +134,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 // Listen on click event.
                 node.once('decision', function(decision, departure) {
 
-                    // Store the decision in the server.
-                    node.set('decision', {
-                        timestamp:  node.timer.getTimeSince('stepping'),
+                    // Mark the end of the round, and send results to server.
+                    node.done({
                         time: departure || 0,
                         decision: decision,
                         order: order
                     });
-
-                    // Mark the end of the round.
-                    node.done();
                 });
             });
 
