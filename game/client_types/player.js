@@ -188,17 +188,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 button = W.getElementById('continue');
 
                 node.on.data('results', function(msg) {
-                    var results;
-                    var f = node.game.formatDepartureTime;
-                    var expectedTime, actualTime;
+                    var results, f;
+                    var expectedTime, actualTime, depTime;
 
                     results = msg.data;
+                    f = node.game.formatDepartureTime;
                     console.log('RESULTS ', results);
 
                     chosenBus.innerHTML = results.global.totBus;
                     chosenCar.innerHTML = results.global.totCar;
-                    avgDepartureCar.innerHTML = 
+                    
+                    depTime = results.global.avgDepartureCar === 'NA' ? 'N/A' :
                         f(results.global.avgDepartureCar);
+                    avgDepartureCar.innerHTML = depTime;
 
                     if (results.decision === 'car') {
                         expectedTime = actualTime = f(results.departure, 1);

@@ -91,7 +91,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 }
                 node.game.computePayoff(e);
             });
-            results.avgDepartureCar =
+            results.avgDepartureCar = results.totCar === 0 ? 'NA' :
                 Math.floor(results.avgDepartureCar / results.totCar);
 
             return results;
