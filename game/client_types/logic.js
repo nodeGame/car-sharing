@@ -30,7 +30,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         });
 
         // Sort: car first, and cars are sorted by departure time.
-        node.game.memory.stage.globalCompare = function(a, b) {
+        node.game.memory.globalCompare = function(a, b) {
             if (a.decision === 'car' && b.decision === 'bus') return -1;
             if (a.decision === 'bus' && b.decision === 'car') return 1;
             if (a.departureTime < b.departureTime) return -1;
@@ -71,7 +71,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
 
             carCounter = 0;
-
+debugger
             // Sort them by departure time.
             node.game.memory.stage[stage].sort();
 
