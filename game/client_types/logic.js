@@ -47,7 +47,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     payoff = s.carY + (s.slopePayoff * e.value.departureTime);
                 }
                 else {
-                    payoff = s.busY - (s.slopePayoff * e.value.departureTime);
+                    payoff = 0; // s.busY - (s.slopePayoff * e.value.departureTime);
                 }
             }
             else {
@@ -75,7 +75,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
 
             carCounter = 0;
-
+debugger
             // Sort them by departure time.
             node.game.memory.stage[stage].sort();
 
