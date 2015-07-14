@@ -235,7 +235,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('end', {
         //frame: 'end.htm',
         cb: function() {
-            W.loadFrame('end.htm');
+            W.loadFrame('end.htm', function() {                
+                var spanCode, spanFee, spanEcu, spanDollars;
+
+                spanCode= W.getElementById('span-code');
+                spanCode.innerHTML = node.player.id;
+
+                spanFee = W.getElementById('span-fee');
+                spanFee.innerHTML = node.game.settings.showupFee;
+
+                spanEcu = W.getElementById('span-ecu');
+                spanDollars = W.getElementById('span-dollars');
+
+                node.on.data('win', function(msg) {
+                    spanEcu.innerHTML = msg.data;
+                    spanDollars.innerHTML =
+                        (msg.data * node.game.settings.exchangeRate).toFixed(2);
+                });
+            });
         }
     });
 

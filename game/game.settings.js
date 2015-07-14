@@ -24,14 +24,16 @@ module.exports = {
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 20,
+    REPEAT: 2,
 
-    // Maximum benefit per round
-    // for arriving to destination exactly on time with 1h travel time
-    MAX_PAYOFF: 1,
+    // Show up fee.
+    showupFee: 1,
 
     // Slope of the payoff curve.
-    SLOPE_PAYOFF: 1,
+    slopePayoff: 1,
+
+    // Conversion rate ECU to DOLLARS.
+    exchangeRate: 0.00001,
 
     timer: {
     

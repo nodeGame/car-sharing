@@ -95,5 +95,15 @@ p#summary {
 }
 
 span#chosen-bus, span#chosen-car, span#average-car-departure {
+   font-weight: bold;
+}
+
+/* End */
+
+span#span-fee, span#span-dollars, span#span-ecu {
     font-weight: bold;
+}
+
+span#span-code {
+    font-style: italics;
 }

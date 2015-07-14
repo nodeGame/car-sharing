@@ -40,19 +40,23 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         this.computePayoff = function(e) {
             var payoff, s;
+            var player;
             s = node.game.settings;
             if (e.value.decision === 'car') {
                 if (e.gotCar) {
-                    payoff = s.carY + (s.SLOPE_PAYOFF * e.value.departureTime);
+                    payoff = s.carY + (s.slopePayoff * e.value.departureTime);
                 }
                 else {
-                    payoff = s.busY - (s.SLOPE_PAYOFF * e.value.departureTime);
+                    payoff = s.busY - (s.slopePayoff * e.value.departureTime);
                 }
             }
             else {
                 payoff = s.busY;
             }
             e.payoff = payoff;
+            // Keep sum of payoffs.
+            player = node.game.pl.get(e.player);
+            player.payoff = (player.payoff || 0) + payoff;
         };
 
         this.getResults = function(stage) {
@@ -71,7 +75,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
 
             carCounter = 0;
-debugger
+
             // Sort them by departure time.
             node.game.memory.stage[stage].sort();
 
@@ -135,6 +139,9 @@ debugger
 
     stager.extendStep('end', {
         cb: function() {
+            node.game.pl.each(function(p) {
+                node.say('win', p.id, p.payoff);
+            });
             node.game.memory.save(channel.getGameDir() + 'data/data_' +
                                   node.nodename + '.json');
         }
