@@ -24,6 +24,7 @@ module.exports = {
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
+    // TODO: if the value is changed the QUIZ page needs to be updated.
     REPEAT: 2,
 
     // Show up fee.
@@ -39,7 +40,7 @@ module.exports = {
     
         instructions1: 60000,
         instructions2: 45000,
-        quiz: 60000,
+        quiz: 6000000,
         decision: 3000,
         results: 3000
 
