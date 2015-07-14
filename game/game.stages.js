@@ -40,6 +40,7 @@ module.exports = function(stager, settings) {
 
     stager.init()
         .next('instructions')
+        .next('quiz')
         .repeat('game', settings.REPEAT)
         .next('end')
         .gameover();
@@ -47,7 +48,7 @@ module.exports = function(stager, settings) {
 
     // Modifty the stager to skip some stages.
 
-    // stager.skip('instructions');
+    stager.skip('instructions');
 
     return stager.getState();
 };

@@ -1,0 +1,62 @@
+<!doctype html>
+<title>QUIZ</title>
+<link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" href="css/style.css" />
+<body>
+  <div style="margin: 0 auto; max-width: 640px">
+    <h2>Quiz</h2>
+
+    <div id="quiz">
+      <dl>
+
+        <dt><strong>Q.1</strong></dt>
+        <dd>
+          <span id="rounds_result" class="quiz_result"></span>
+          <form name="rounds" id="rounds">
+	    <p class="question">How many rounds will you play?</p>
+	    <p>
+	      <input type="radio" name="rounds" value="10"> 10<br>
+	      <input type="radio" name="rounds" value="20"> 20<br>
+	      <input type="radio" name="rounds" value="30"> 30<br>
+	      <input type="radio" name="rounds" value="not"> Not known in advance
+	    </p>
+	  </form>
+        </dd>
+
+        <dt><strong>Q.2</strong></dt>
+        <dd>
+          <span id="payoff_result" class="quiz_result"></span>
+          <form name="payoff" id="payoff">
+            <p class="question">How is the payoff computed in each round?</p>
+            <p>
+              <input type="radio" name="payoff" value="0"> The payoff is higher if my travel time is small, regardless of when I decide to leave<br>
+              <input type="radio" name="payoff" value="1"> The payoff is higher if my travel time is small, and I arrive as close as possible to 12:00<br>
+              <input type="radio" name="payoff" value="2"> The payoff is randomly assigned</br>
+              <input type="radio" name="payoff" value="3"> The payoff is higher if I arrive at in time, regardless of the travel time
+            </p>
+          </form>
+        </dd>
+        <dt><strong>Q.3</strong></dt>
+        <dd>
+          <span id="buscar_result" class="quiz_result"></span>
+          <form name="buscar" id="buscar">
+            <p class="question">How is the payoff for the car option calculated? Select the statement that is most correct.</p>
+            <p>
+              <input type="radio" name="buscar" value="1"> The payoff of the car is generally higher than the payoff of the bus <br>
+              <input type="radio" name="buscar" value="3"> The payoff of the car depends on how many players decide to take the car<br>
+              <input type="radio" name="buscar" value="4"> The payoff of the car depends on how many players decide to take the bus</br>
+              <input type="radio" name="buscar" value="5"> The payoff of the car depends on how many players decide to take the car and on their departure time<br>
+            </p>
+
+          </form>
+        </dd>
+      </dl>
+      <div id="done_box">
+        <button onclick='javascript:parent.node.emit("check-quiz");' id="submitQuiz"  class="btn btn-lg btn-primary">Click here to check your answers, and start the game. <br>Correct answers <span id="answers_counter">0 / 3</span></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+<script src="js/quiz.js"></script>

@@ -36,6 +36,35 @@ span#rounds-count, span#ecu-conversion, span#ecu-conversion-2 {
    font-weight: bold;
 }
 
+/* Quiz */
+
+div#quiz ul, ol {
+    margin: 30px 0 30px 10px;
+
+}
+
+div#quiz li {
+    margin-bottom: 20px;
+}
+
+div#container_quiz {
+    margin: 0 auto;
+    width: 800px;
+}
+
+div#quiz {
+    margin: 0 auto;
+    text-align: left;
+    padding: 10px;
+}
+
+.quiz_result {
+    font-weight: bold;
+}
+
+.question {
+    font-weight: bold;
+}
 
 /* Decision */
 

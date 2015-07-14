@@ -37,7 +37,9 @@ module.exports = {
 
     timer: {
     
-        instructions: 600000,
+        instructions1: 60000,
+        instructions2: 45000,
+        quiz: 60000,
         decision: 3000,
         results: 3000
 

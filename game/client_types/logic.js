@@ -111,6 +111,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     });
 
+    stager.extendStep('quiz', {
+        cb: function() {
+            console.log('Quiz');
+        }
+    });
 
     stager.extendStep('decision', {
         cb: function() {

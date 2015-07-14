@@ -118,11 +118,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.done();
                 };
 
-                node.env('auto', function() {
-                    node.randomExec(function() {
-                        button.click();
-                    }, 3000);
-                });
+//                 node.env('auto', function() {
+//                     node.randomExec(function() {
+//                         button.click();
+//                     }, 3000);
+//                 });
 
             });
         },
@@ -154,7 +154,36 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             });
         },
-        timer: settings.timer.instructions
+        timer: settings.timer.instructions2
+    });
+
+    stager.extendStep('quiz', {
+        cb: function() {
+            W.loadFrame('quiz.htm', function() {
+                var button, QUIZ;
+
+                QUIZ = W.getFrameWindow().QUIZ;
+                button = W.getElementById('submitQuiz');
+
+                node.on('check-quiz', function() {
+                    var answers;
+                    answers = QUIZ.checkAnswers(button);
+                    if (answers.correct || node.game.timer.isTimeup()) {
+                        node.emit('INPUT_DISABLE');
+                        // On Timeup there are no answers.
+                        node.done(answers);
+                    }
+                });
+
+                node.env('auto', function() {
+                    node.timer.randomExec(function() {
+                        node.game.timer.doTimeUp();
+                    });
+                });
+                console.log('Quiz');
+            });
+        },
+        timer: settings.timer.quiz
     });
 
     stager.extendStep('decision', {
