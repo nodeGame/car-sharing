@@ -45,9 +45,9 @@ module.exports = function(stager, settings) {
         .gameover();
 
 
-    // Modifty the stager to skip one stage.
+    // Modifty the stager to skip some stages.
 
-    stager.skip('instructions');
+    // stager.skip('instructions');
 
     return stager.getState();
 };

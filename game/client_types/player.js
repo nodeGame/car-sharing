@@ -17,6 +17,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     var game;
 
+    stager.setDefaultGlobals({ totPlayers: gameRoom.game.waitroom.GROUP_SIZE });
+
     stager.setOnInit(function() {
 
         // Initialize the client.
@@ -99,8 +101,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
 
             W.loadFrame('instructions.htm', function() {
+                var button, pCount;
 
-                var button = W.getElementById('read');
+                pCount = W.getElementById('players-count');
+                pCount.innerHTML = node.game.globals.totPlayers;
+
+                button = W.getElementById('read');
                 button.onclick = function() {
                     node.done();
                 };
