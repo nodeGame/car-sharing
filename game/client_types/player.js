@@ -237,6 +237,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('end', {
         //frame: 'end.htm',
         cb: function() {
+            node.game.timer.startTiming();
+            node.game.timer.setToZero();
             W.loadFrame('end.htm', function() {                
                 var spanCode, spanFee, spanEcu, spanDollars;
 
