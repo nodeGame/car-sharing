@@ -38,11 +38,17 @@ module.exports = {
 
     timer: {
     
-        instructions1: 60000,
-        instructions2: 45000,
-        quiz: 6000000,
-        decision: 3000,
-        results: 3000
+        instructions1: 90000,
+        instructions2: 60000,
+        quiz: 90000,
+        decision: function() {
+            if (node.player.stage.round === 1) return 45000;
+            return 15000;
+        },
+        results: function() {
+            if (node.player.stage.round === 1) return 45000;
+            return 15000;
+        }
 
     },
 

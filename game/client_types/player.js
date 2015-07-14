@@ -103,15 +103,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.visualRound.setDisplayMode(['COUNT_UP_STAGES_TO_TOTAL']);
 
             W.loadFrame('instructions.htm', function() {
-                var button, pCount, s;
+                var button, pCount, s, n;
                 s = node.game.settings;
+                n = node.game.globals.totPlayers;
 
-                W.getElementById('players-count').innerHTML =
-                    node.game.globals.totPlayers;
+                W.getElementById('players-count').innerHTML = n;
 
                 W.getElementById('payoff-car').innerHTML = s.carY;
                 W.getElementById('payoff-car-2').innerHTML = s.carY;
                 W.getElementById('payoff-bus').innerHTML = s.busY;
+
+                if (s.info) {
+                    W.getElementById('car-amount').innerHTML =
+                        ' to <strong>' + (Math.floor(n*s.carLevel) || 1) +
+                        '</strong> cars';
+                }
 
                 button = W.getElementById('read');
                 button.onclick = function() {
@@ -126,7 +132,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             });
         },
-        timer: settings.timer.instructions
+        timer: settings.timer.instructions1
     });
 
 
@@ -245,6 +251,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             W.loadFrame('results.htm', function() {
                 var choice, departure, arrivalExpected, arrivalActual, payoff;
                 var chosenBus, chosenCar, avgDepartureCar, button;
+                var spanAvgDep;
 
                 chosenBus = W.getElementById('chosen-bus');
                 chosenCar = W.getElementById('chosen-car');
@@ -255,6 +262,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 arrivalExpected = W.getElementById('arrival-expected');
                 arrivalActual = W.getElementById('arrival-actual');
                 payoff = W.getElementById('payoff');
+
+                if (node.game.settings.info) {
+                    spanAvgDep = W.getElementById('span-avg-car-departure');
+                }
 
                 button = W.getElementById('continue');
 
@@ -269,9 +280,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     chosenBus.innerHTML = results.global.totBus;
                     chosenCar.innerHTML = results.global.totCar;
 
-                    depTime = results.global.avgDepartureCar === 'NA' ? 'N/A' :
-                        f(results.global.avgDepartureCar);
-                    avgDepartureCar.innerHTML = depTime;
+                    if (node.game.settings.info) {
+                        depTime = results.global.avgDepartureCar === 'NA' ?
+                            'N/A' : f(results.global.avgDepartureCar);
+                        avgDepartureCar.innerHTML = depTime;
+                        spanAvgDep.style.display = '';
+                    }
 
                     if (results.decision === 'car') {
                         expectedTime = actualTime = f(results.departure, 1);
