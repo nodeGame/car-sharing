@@ -19,7 +19,6 @@ table#table-decision td {
     vertical-align: top;
     padding: 20px;
     cursor: pointer;
-    border: 5px solid #CCC;
 }
 
 table#table-decision td:hover {
@@ -28,7 +27,7 @@ table#table-decision td:hover {
 
 table#table-decision img {
     width: 200px;
-    height: 200px;
+    height: 150px;
 }
 
 div#car-departure-div {
@@ -60,6 +59,11 @@ div#div-button {
 
 td.td-selected {
     background: #FFC;
+    border: 5px solid #111;
+}
+
+td.td-not-selected {
+    border: 5px solid #CCC;
 }
 
 span.td-title {

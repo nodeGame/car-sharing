@@ -26,11 +26,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         node.game.lastDepartureTime = null;
         node.game.lastDecision = null;
 
-        this.formatDepartureTime = function(time) {
+        this.formatDepartureTime = function(time, offset) {
+            var base;
             time = time || 0;
-            if (time === 60) time = '11:00';
-            else if (time < 10) time = '10:0' + time;
-            else time = '10:' + time;
+            base = offset ? 10 + offset : 10;
+            if (time === 60) time = (base + 1) + ':00';
+            else if (time < 10) time = base + ':0' + time;
+            else time = base + ':' + time;
             return time;
         }
 
@@ -60,7 +62,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
             // Departure time is changed by the slider for car.
             td.className = 'td-selected';
-            otherTd.className = '';
+            otherTd.className = 'td-not-selected';
             button = W.getElementById('decision');
             this.updateDecisionButton();
         };
@@ -198,16 +200,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     avgDepartureCar.innerHTML = 
                         f(results.global.avgDepartureCar);
 
-                    choice.innerHTML = results.decision;
-                    departure.innerHTML = f(results.departure);
-
-                    if (results.decision === 'bus') {
-                        expectedTime = actualTime = '12:00';
+                    if (results.decision === 'car') {
+                        expectedTime = actualTime = f(results.departure, 1);
+                        if (results.gotCar) {
+                            choice.innerHTML = 'Car';                        
+                        }
+                        else {
+                            choice.innerHTML = 'Car (<em>not available!</em>)';
+                            actualTime = '14:00';
+                        }                        
                     }
                     else {
-                        expected = 'AA';
-                        actualTime = 'BB';
+                        choice.innerHTML = 'Bus';
+                        expectedTime = actualTime = '12:00';
                     }
+                    departure.innerHTML = f(results.departure);
 
                     arrivalExpected.innerHTML = expectedTime;
                     arrivalActual.innerHTML = actualTime;

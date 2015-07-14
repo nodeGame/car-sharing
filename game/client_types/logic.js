@@ -26,7 +26,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         node.on('in.set.DATA', function(o) {
             o.treatment = treatmentName;
             o.session = node.nodename;
-            console.log('in.set.DATA ', o);
+            // console.log('in.set.DATA ', o);
         });
 
         // Sort: car first, and cars are sorted by departure time.
@@ -39,19 +39,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         };
 
         this.computePayoff = function(e) {
-            var payoff, settings;
-            if (e.decision === 'car') {
+            var payoff, s;
+            s = node.game.settings;
+            if (e.value.decision === 'car') {
                 if (e.gotCar) {
-                    payoff = node.game.settings.carY +
-                        (node.game.settings.SLOPE_PAYOFF * e.departure);
+                    payoff = s.carY + (s.SLOPE_PAYOFF * e.value.departureTime);
                 }
                 else {
-                    payoff = settings.busY - 
-                        (node.game.settings.SLOPE_PAYOFF * e.departure);
+                    payoff = s.busY - (s.SLOPE_PAYOFF * e.value.departureTime);
                 }
             }
             else {
-                payoff = node.game.settings.busY;
+                payoff = s.busY;
             }
             e.payoff = payoff;
         };
@@ -112,11 +111,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('decision', {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);
-
-            node.on.data('done', function(msg) {
-                console.log('done ', msg.from, msg.data);
-            });
-
         }
     });
 
