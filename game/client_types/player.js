@@ -134,8 +134,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
 
             W.loadFrame('instructions2.htm', function() {
-                var button, s;
+                var button, s, rate;
                 s = node.game.settings;
+                rate = Math.ceil(1 / s.exchangeRate);
+                W.getElementById('rounds-count').innerHTML = s.REPEAT;
+                W.getElementById('ecu-conversion').innerHTML = rate;
+                W.getElementById('ecu-conversion-2').innerHTML = rate;
 
                 button = W.getElementById('read');
                 button.onclick = function() {

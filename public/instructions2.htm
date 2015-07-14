@@ -1,19 +1,57 @@
 <!doctype html>
 <title>INSTRUCTIONS</title>
 <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" href="css/style.css" />
 <body>
-  <div id="container" style="margin: 0 auto; max-width: 640px">
-    <h1>Instructions</h1>
-    <h3>Please read them carefully</h3>
+  <div style="margin: 0 auto; max-width: 640px">
+    <h2>Instructions <span class="subtitle">Please read them carefully</span></h2>
     <div id="instructions">
-      <br>
 
-      Explaining the payoff function.
+      <h4>Bonus Conversion</h4>
+      
+      The game is repeated <span id="rounds-count">X</span> rounds, in
+      each of which you can earn up to a maximum payoff
+      of <strong>100</strong> ECU. Your final bonus is equal to the
+      sum of payoffs collected in each round.
 
-      <br>
+      <br/>
+      <br/>
+
+      ECU are converted to US dollars with a factor
+      of <span id="ecu-conversion">X</span> to 1, so that you need to
+      collect <span id="ecu-conversion-2">X</span> ECU to win 1
+      dollar.
+    
+      
+      <h4>Final Guidelines</h4>
+      
+      <div id="payoff-info">
+        <em>Attention!</em> To ensure that you receive your pay: 
+        <ul>       
+          <li>
+            Do not use the "Back Button" of your browser during the game.
+          </li>
+          <li>
+            If your browser crashes or your connection goes down, you
+            can reconnect any time until the game is finished. All the
+            rounds that you don't play will not be added to your final
+            payoff.
+          </li>
+          <li>
+            You need to play at least 50% of the rounds and be
+            connected during the last round to receive your payment.
+          </li>
+        </ul>
+        </div>
+
+      <h4>Quiz</h4>
+      
+      A brief quiz will follow to prove that you understood the
+      instructions correctly.
 
     </div>
-    <h3>If you understood the instructions press the button below.</h3>  <input type="button" id="read" value="Proceed
-      to the game" class="btn btn-lg btn-primary"/>
+
+    <br/>
+    <input type="button" id="read" value="Continue" class="btn btn-lg btn-primary"/>
   </div>
 </body>

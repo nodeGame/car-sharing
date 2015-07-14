@@ -29,6 +29,14 @@ div#payoff-info ul li {
 span#payoff-car, span#payoff-car-2, span#payoff-bus, span#players-count, span#car-number {
    font-weight: bold;
 }
+
+/* Instructions 2 */
+
+span#rounds-count, span#ecu-conversion, span#ecu-conversion-2 {
+   font-weight: bold;
+}
+
+
 /* Decision */
 
 table#table-decision {

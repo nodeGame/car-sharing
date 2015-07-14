@@ -33,7 +33,7 @@ module.exports = {
     slopePayoff: 1,
 
     // Conversion rate ECU to DOLLARS.
-    exchangeRate: 0.00001,
+    exchangeRate: 0.001,
 
     timer: {
     
