@@ -45,8 +45,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             else {
                 decision = 'bus';
                 departure = 0;
-            }
-            node.emit('decision', decision, departure);
+            }            
+            node.game.lastDepartureTime = departure;
+            node.game.decisionMade(decision);
+            setTimeout(function() {
+                W.getElementById('decision').click();
+            }, 2000);
         };
 
         this.decisionMade = function(decision) {
@@ -70,11 +74,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.updateDecisionButton = function() {
             var button, decision;
             button = W.getElementById('decision');
-            button.disabled = false;            
+            button.disabled = false;
             if (node.game.lastDecision === 'car') {
                 button.value = 'I will take the ' +
-                    node.game.lastDecision 
-                    + ' and leave at ' + 
+                    node.game.lastDecision
+                    + ' and leave at ' +
                     this.formatDepartureTime(node.game.lastDepartureTime);
             }
             else {
@@ -101,6 +105,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.done();
                 };
 
+                node.env('auto', function() {
+                    node.randomExec(function() {
+                        button.click();
+                    }, 3000);
+                });
+
             });
         },
         timer: settings.timer.instructions
@@ -117,6 +127,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.done();
                 };
 
+                node.env('auto', function() {
+                    node.randomExec(function() {
+                        button.click();
+                    }, 3000);
+                });
+
             });
         },
         timer: settings.timer.instructions
@@ -126,7 +142,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             W.loadFrame('decision.htm', function() {
                 var order, tdBus, tdCar, tr;
-                
+
                 tdBus = W.getElementById('td-bus');
                 tdCar = W.getElementById('td-car');
 
@@ -157,6 +173,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         order: order
                     });
                 };
+
+                node.env('auto', function() {
+                    node.randomExec(function() {
+                        node.game.randomDecision();
+                    }, 3000);
+                });
+
             });
 
         },
@@ -197,7 +220,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     chosenBus.innerHTML = results.global.totBus;
                     chosenCar.innerHTML = results.global.totCar;
-                    
+
                     depTime = results.global.avgDepartureCar === 'NA' ? 'N/A' :
                         f(results.global.avgDepartureCar);
                     avgDepartureCar.innerHTML = depTime;
@@ -205,12 +228,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     if (results.decision === 'car') {
                         expectedTime = actualTime = f(results.departure, 1);
                         if (results.gotCar) {
-                            choice.innerHTML = 'Car';                        
+                            choice.innerHTML = 'Car';
                         }
                         else {
                             choice.innerHTML = 'Car (<em>not available!</em>)';
                             actualTime = '14:00';
-                        }                        
+                        }
                     }
                     else {
                         choice.innerHTML = 'Bus';
@@ -239,7 +262,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             node.game.timer.startTiming();
             node.game.timer.setToZero();
-            W.loadFrame('end.htm', function() {                
+            W.loadFrame('end.htm', function() {
                 var spanCode, spanFee, spanEcu, spanDollars;
 
                 spanCode= W.getElementById('span-code');
@@ -256,6 +279,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     spanDollars.innerHTML =
                         (msg.data * node.game.settings.exchangeRate).toFixed(2);
                 });
+                
+                // Remove warning for closing the tab.
+                W.restoreOnleave();
             });
         }
     });

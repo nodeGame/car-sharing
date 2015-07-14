@@ -38,8 +38,8 @@ module.exports = {
     timer: {
     
         instructions: 600000,
-        decision: 300000,
-        results: 300000
+        decision: 3000,
+        results: 3000
 
     },
 
