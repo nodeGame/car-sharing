@@ -17,6 +17,18 @@ div#instructions {
     padding-top: 5px;
 }
 
+div#payoff-info ul {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div#payoff-info ul li {
+    margin-bottom: 10px;
+}
+
+span#payoff-car, span#payoff-car-2, span#payoff-bus, span#players-count, span#car-number {
+   font-weight: bold;
+}
 /* Decision */
 
 table#table-decision {

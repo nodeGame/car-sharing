@@ -100,11 +100,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('instr1', {
         cb: function() {
 
-            W.loadFrame('instructions.htm', function() {
-                var button, pCount;
+            node.game.visualRound.setDisplayMode(['COUNT_UP_STAGES_TO_TOTAL']);
 
-                pCount = W.getElementById('players-count');
-                pCount.innerHTML = node.game.globals.totPlayers;
+            W.loadFrame('instructions.htm', function() {
+                var button, pCount, s;
+                s = node.game.settings;
+
+                W.getElementById('players-count').innerHTML =
+                    node.game.globals.totPlayers;
+
+                W.getElementById('payoff-car').innerHTML = s.carY;
+                W.getElementById('payoff-car-2').innerHTML = s.carY;
+                W.getElementById('payoff-bus').innerHTML = s.busY;
 
                 button = W.getElementById('read');
                 button.onclick = function() {
@@ -127,8 +134,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
 
             W.loadFrame('instructions2.htm', function() {
+                var button, s;
+                s = node.game.settings;
 
-                var button = W.getElementById('read');
+                button = W.getElementById('read');
                 button.onclick = function() {
                     node.done();
                 };

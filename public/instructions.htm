@@ -7,6 +7,8 @@
     <h2>Instructions <span class="subtitle">Please read them carefully</span></h2>
     <div id="instructions">
 
+      <h4>Settings</h4>
+
       This game is played by <span id="players-count">X</span> human players, in the role of
       commuters who must reach their destination before 12:00 am. Two
       options are available:
@@ -15,39 +17,67 @@
 
       <ul>
         <li style="margin-bottom: 10px">
-          <strong style="font-size: 18px">Public Transport by
-          Bus</strong>: 2 hours travel time, departure time is fixed: 10:00 am.
+          <strong style="font-size: 16px">Public Transport by
+          Bus</strong>: 2 hours travel time, departure time fixed: 10:00 am.
         </li>
         <li style="margin-bottom: 20px">
-          <strong style="font-size: 18px">Car Sharing
-          Service</strong>: 1 hour travel time, departure time between
-          10:00 and 11:00 am.
+          <strong style="font-size: 16px">Car Sharing
+          Service</strong>: 1 hour travel time, departure time flexible
+          (10:00 -11:00 am).
         </li>
       </ul>
 
       You will get a payoff for reaching your destination as close as
       possible to 12:00 am, and with as little travel time as
-      possible. Therefore, you get the highest payoff when you arrive
-      at 12:00 with one hour of travel time by car. However, <em>the
-      number of available cars is limited!</em>
+      possible.
 
       <br/><br/>
 
-      The earlier you arrive to the car sharing site, the higher is
-      the chance to find a car available. However, the advantage of
-      the shorter travel time by car is reduced because you will reach
-      your destination too early.
+      <em>Notice!</em> The number of car available at the car sharing
+      site is limited<span id="car-number"></span>, therefore the
+      earlier you arrive to the car sharing site, the higher is the
+      chance to find a car available. However, the advantage of the
+      shorter travel time by car is reduced if you reach your
+      destination too early.
 
       <br/><br/>
+      
+      <h4>Payoff Computation</h4>
 
-      If you arrive to the car sharing site and there are no cars
-      left, you are forced to take the next bus and you will arrive
-      with an according delay.
+      <div id="payoff-info">
+        
+      
+      <ul>
+        <li>
+          Taking the car at 10:00 am, therefore arriving one hour early,
+          gives you <span id="payoff-car">X</span>% of the maximum
+          payoff.
+        </li>
+        <li>
+          Taking the car at 11:00 am, therefore arriving to
+          destination at 12:00 with 1 hour travel time, gives you
+          the <strong>maximum</strong> payoff.
+        </li>
+        <li>
+          Taking the car between 10:00 and 11:00 am gives you a payoff
+          between <span id="payoff-car-2">X</span>% and <strong>100</strong>% of the
+          maximum payoff.
+        </li>
+        <li>
+          If you arrive to the car sharing site and there are no cars
+          available, you are forced to take the next bus and you
+          arrive one hour late with a payoff of <strong>0</strong>.
+        </li>
+        <li>
+          Taking the bus at 10:00 am always gives you
+          <span id="payoff-bus">X</span>% of the maximum payoff.
+        </li>
+        </ol>
 
-      <br/><br/>
-
+      </div>
     </div>
-    <h3>If you understood the instructions press the button below.</h3>  <input type="button" id="read" value="Proceed
-      to the game" class="btn btn-lg btn-primary"/>
+
+    <br/>
+    <input type="button" id="read" value="Continue" class="btn btn-lg btn-primary"/>
   </div>
 </body>
