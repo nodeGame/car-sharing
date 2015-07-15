@@ -194,6 +194,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('decision', {
         cb: function() {
+
+            node.game.visualRound.setDisplayMode([
+                'COUNT_UP_ROUNDS_TO_TOTAL',
+                'COUNT_UP_STAGES_TO_TOTAL'
+            ]);
+
             W.loadFrame('decision.htm', function() {
                 var order, tdBus, tdCar, tr;
 
