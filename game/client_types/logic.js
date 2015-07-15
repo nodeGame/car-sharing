@@ -75,7 +75,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
 
             carCounter = 0;
-debugger
+
             // Sort them by departure time.
             node.game.memory.stage[stage].sort();
 

@@ -57,6 +57,41 @@ module.exports = function(settings, done) {
     
     // Example: load codes asynchronously
 
+    // Asynchronous.
+
+    // Reads in descil-mturk configuration.
+    confPath = path.resolve(__dirname, 'descil.conf.js');
+    dk = require('descil-mturk')();
+
+    dk.readConfiguration(confPath);
+
+    // Load code database.
+    if (settings.mode === 'remote') {
+
+        // Convert format.
+        dk.codes.on('insert', function(o) {
+            o.id = o.AccessCode;
+        });
+
+        dk.getCodes(function() {            
+            if (!dk.codes.size()) {
+                done('Auth.codes: no codes found!');
+            }
+            console.log(dk.codes.db);
+            done(null, dk.codes.db);
+        });
+    }
+    else if (settings.mode === 'local') {
+        dk.readCodes(function() {
+            if (!dk.codes.size()) {
+                done('Auth.codes: no codes found!');
+            }
+        });
+    }
+    else {
+        done('Auth.codes: Unknown settings.');
+    }
+
     // loadCodesFromDatabase(function(err, codes) {
     //     done(err, codes);
     // });

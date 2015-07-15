@@ -12,6 +12,7 @@ Session.vim
 
 server/csv
 server/data
+auth/descil.conf.js
 
 data
 node_modules

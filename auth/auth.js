@@ -16,7 +16,7 @@ module.exports = function(auth) {
 
     // auth.authorization('player', authPlayers);
     // auth.clientIdGenerator('player', idGen);
-    // auth.clientObjDecorator('player', decorateClientObj);
+    auth.clientObjDecorator('player', decorateClientObj);
 
     // All of them accept a variable number of parameters.
     // The first one specifies whether they apply only to
