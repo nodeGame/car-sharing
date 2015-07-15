@@ -16,3 +16,5 @@ auth/descil.conf.js
 
 data
 node_modules
+
+channel/channel.credentials.js
