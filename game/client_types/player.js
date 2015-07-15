@@ -47,7 +47,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             else {
                 decision = 'bus';
                 departure = 0;
-            }            
+            }
             node.game.lastDepartureTime = departure;
             node.game.decisionMade(decision);
             setTimeout(function() {
@@ -337,7 +337,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 spanCode= W.getElementById('span-code');
                 spanCode.innerHTML = node.player.id;
 
-                node.on.data('win', function(msg) {                    
+                node.on.data('win', function(msg) {
                     var spanFee, spanEcu, spanDollars;
 
                     spanFee = W.getElementById('span-fee');
@@ -352,7 +352,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     W.getElementById('win').style.display = '';
                 });
-                
+
                 node.on.data('fail', function() {
                     var fail;
                     fail = W.getElementById('fail');
@@ -361,16 +361,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         '<br/> therefore you have not earned a payment.';
                     fail.style.display = '';
                 });
-            
+
                 // Remove warning for closing the tab.
                 W.restoreOnleave();
-                
+
                 node.env('auto', function() {
                     node.timer.randomExec(function() {
                         node.socket.disconnect();
                      }, 60000);
-                }); 
-
+                });
             });
         }
     });
