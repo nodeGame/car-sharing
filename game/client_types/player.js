@@ -374,6 +374,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 node.env('auto', function() {
                     node.timer.randomExec(function() {
                         node.socket.disconnect();
+                        window.close();
                      }, 60000);
                 });
             });
