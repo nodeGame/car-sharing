@@ -14,7 +14,7 @@
 module.exports = function(settings, done) {
 
     return {
-        user: 'st3fano',
-        pwd: '123ahaha123'
+        user: 'a',
+        pwd: 'a'
     };
 };

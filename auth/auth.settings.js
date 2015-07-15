@@ -11,7 +11,7 @@ module.exports = {
     // If authorization is enabled clients must use a valid code,
     // as exported by the codes property here, to be allowed to
     // load resources from the server.
-    enabled: true, //  [true, false] Default: TRUE.
+    enabled: false, //  [true, false] Default: TRUE.
 
     // Option specifying how to load the codes.
     mode: 'auto', // ['auto'] Default: 'auto'

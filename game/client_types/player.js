@@ -124,11 +124,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.done();
                 };
 
-//                 node.env('auto', function() {
-//                     node.randomExec(function() {
-//                         button.click();
-//                     }, 3000);
-//                 });
+                 node.env('auto', function() {
+                     node.timer.randomExec(function() {
+                         button.click();
+                     }, 3000);
+                 });
 
             });
         },
@@ -153,7 +153,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 };
 
                 node.env('auto', function() {
-                    node.randomExec(function() {
+                    node.timer.randomExec(function() {
                         button.click();
                     }, 3000);
                 });
@@ -229,7 +229,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 };
 
                 node.env('auto', function() {
-                    node.randomExec(function() {
+                    node.timer.randomExec(function() {
                         node.game.randomDecision();
                     }, 3000);
                 });
@@ -313,6 +313,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         node.done();
                     };
 
+                    node.env('auto', function() {
+                        node.timer.randomExec(function() {
+                            button.click();
+                        }, 3000);
+                    });
+
                 });
             });
         },
@@ -358,6 +364,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             
                 // Remove warning for closing the tab.
                 W.restoreOnleave();
+                
+                node.env('auto', function() {
+                    node.timer.randomExec(function() {
+                        node.socket.disconnect();
+                     }, 60000);
+                }); 
+
             });
         }
     });
