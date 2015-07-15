@@ -94,7 +94,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         // Add widgets.
         this.visualRound = node.widgets.append('VisualRound', header);
-        this.timer = node.widgets.append('VisualTimer', header);
+        this.visualTimer = node.widgets.append('VisualTimer', header);
     });
 
     stager.extendStep('instr1', {
@@ -174,7 +174,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 node.on('check-quiz', function() {
                     var answers;
                     answers = QUIZ.checkAnswers(button);
-                    if (answers.correct || node.game.timer.isTimeup()) {
+                    if (answers.correct || node.game.visualTimer.isTimeup()) {
                         node.emit('INPUT_DISABLE');
                         // On Timeup there are no answers.
                         node.done(answers);
@@ -183,7 +183,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 node.env('auto', function() {
                     node.timer.randomExec(function() {
-                        node.game.timer.doTimeUp();
+                        node.game.visualTimer.doTimeUp();
                     });
                 });
                 console.log('Quiz');
@@ -320,28 +320,42 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('end', {
-        //frame: 'end.htm',
+        // frame: 'end.htm',
         cb: function() {
-            node.game.timer.startTiming();
-            node.game.timer.setToZero();
+            // Reset visual timer (hack).
+            node.game.visualTimer.startTiming({milliseconds: 5000});
+            node.game.visualTimer.setToZero();
             W.loadFrame('end.htm', function() {
-                var spanCode, spanFee, spanEcu, spanDollars;
+                var spanCode;
 
                 spanCode= W.getElementById('span-code');
                 spanCode.innerHTML = node.player.id;
 
-                spanFee = W.getElementById('span-fee');
-                spanFee.innerHTML = node.game.settings.showupFee;
+                node.on.data('win', function(msg) {                    
+                    var spanFee, spanEcu, spanDollars;
 
-                spanEcu = W.getElementById('span-ecu');
-                spanDollars = W.getElementById('span-dollars');
+                    spanFee = W.getElementById('span-fee');
+                    spanFee.innerHTML = node.game.settings.showupFee;
 
-                node.on.data('win', function(msg) {
+                    spanEcu = W.getElementById('span-ecu');
+                    spanDollars = W.getElementById('span-dollars');
+
                     spanEcu.innerHTML = msg.data;
                     spanDollars.innerHTML =
                         (msg.data * node.game.settings.exchangeRate).toFixed(2);
+
+                    W.getElementById('win').style.display = '';
                 });
                 
+                node.on.data('fail', function() {
+                    var fail;
+                    fail = W.getElementById('fail');
+                    fail.innerHTML = 'Unfortunately, you did not complete ' +
+                        'at least 50% of the rounds in this experiment, ' +
+                        '<br/> therefore you have not earned a payment.';
+                    fail.style.display = '';
+                });
+            
                 // Remove warning for closing the tab.
                 W.restoreOnleave();
             });

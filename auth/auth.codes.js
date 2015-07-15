@@ -36,7 +36,6 @@ module.exports = function(settings, done) {
 
         nCodes = 100;
         codes = [];
-
         for (i = 0 ; i < nCodes; i ++) {
             codes.push({
 

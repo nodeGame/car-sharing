@@ -44,7 +44,7 @@ module.exports = {
 
     // Unauthorized clients will be redirected here.
     // (defaults: "/pages/accessdenied.htm")
-    accessDeniedUrl: 'unauth.htm',
+    // accessDeniedUrl: 'unauth.htm',
 
     // By default player actions are notified to admins only. Force
     // notification to other players connected in the same game room:

@@ -6,14 +6,21 @@
  * http://www.nodegame.org
  * ---
  */
+
+"use strict";
+
 var ngc = require('nodegame-client');
 var J = require('JSUS').JSUS;
+var stepRules = ngc.stepRules;
+
 var counter = 0;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     var node = gameRoom.node;
     var channel =  gameRoom.channel;
+
+    var dk = require('descil-mturk')();
 
     // Must implement the stages here.
 
@@ -22,6 +29,30 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.setOnInit(function() {
         // Initialize the client.
+
+        node.on.preconnect(function(p) {
+            var code, reconStage, payoff;
+
+            console.log('Oh...somebody reconnected!', p.id);
+            reconStage = node.player.stage;
+
+            gameRoom.setupClient(p.id);
+
+            // Start the game on the reconnecting client.
+            node.remoteCommand('start', p.id, { step: false });
+            // Add player to player list.
+            node.game.pl.add(p);
+            // Send player to the current stage.
+            node.remoteCommand('goto_step', p.id, reconStage);
+
+            // If we are in the last step.
+            if (node.game.compareCurrentStep('end') === 0) {
+                payoff = doCheckout(p);
+                // If player was not checkout yet, do it.
+                if (payoff) postPayoffs([payoff]);                    
+            }
+        });
+
 
         node.on('in.set.DATA', function(o) {
             o.treatment = treatmentName;
@@ -54,9 +85,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 payoff = s.busY;
             }
             e.payoff = payoff;
-            // Keep sum of payoffs.
-            player = node.game.pl.get(e.player);
+            // Keep track of sum of payoffs and number or rounds played.
+            player = channel.registry.getClient(e.player);
             player.payoff = (player.payoff || 0) + payoff;
+            player.rounds = (player.rounds || 0) + 1;
         };
 
         this.getResults = function(stage) {
@@ -128,7 +160,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
 
             var results, previousStage;
-            
+
             previousStage = node.game.plot.previous(
                 node.game.getCurrentGameStage()
             );
@@ -144,28 +176,66 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('end', {
         cb: function() {
-            node.game.pl.each(function(p) {
-                node.say('win', p.id, p.payoff);
-            });
+            var payoffs, code, payoff;
+            payoffs = node.game.pl.map(doCheckout);
             node.game.memory.save(channel.getGameDir() + 'data/data_' +
                                   node.nodename + '.json');
-        }
-    });
 
-    stager.setOnGameOver(function() {
-
-        // Something to do.
-
+            postPayoffs(payoffs);
+        },
+        stepRule: stepRules.SOLO,
     });
 
     // Here we group together the definition of the game logic.
     return {
         nodename: 'lgc' + counter,
         // Extracts, and compacts the game plot that we defined above.
-        plot: stager.getState(),
-
+        plot: stager.getState()
     };
 
     // Helper functions.
 
+    /**
+     * ## doCheckout
+     *
+     * Checks if a player has played enough rounds, and communicates the outcome
+     *
+     * @param {object} p A player object with valid id
+     * @param {object} code Optional. The code object from the registry (avoid
+     *   loading it twice)
+     *
+     * @return {object} A payoff object as required by descil-mturk.postPayoffs.
+     *   If the player has not completed enough rounds returns undefined.
+     */
+    function doCheckout(p) {
+        var code;
+        code = channel.registry.getClient(p.id);
+        if (code.checkout) {            
+            node.remoteAlert('Hi! It looks like you have already ' +
+                             'completed this game.', p.id);
+            return;
+        }
+
+        code.checkout = true;
+        // Must have played at least half of the rounds.
+        if ((code.rounds || 0) < Math.floor(settings.REPEAT / 2)) {
+            node.say('fail', p.id);
+            return;
+        }
+        node.say('win', p.id, code.payoff || 0);
+        return {
+            AccessCode: p.id,
+            Bonus: code.payoff,
+            BonusReason: 'good boy'
+        };
+    }
+
+    function postPayoffs(payoffs) {
+        dk.postPayoffs(payoffs, function(err, response, body) {
+            if (err) {
+                node.err("adjustPayoffAndCheckout: " +
+                         "dk.postPayoff: " + err);
+            };
+        });
+    }
 };
