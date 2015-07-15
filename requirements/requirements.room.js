@@ -29,7 +29,7 @@ module.exports = function(settings, room, runtimeConf) {
             });
 
             node.remoteSetup('widgets', player.id, {
-                append: { 'Requirements': { 
+                append: { 'Requirements': {
                     root: 'widgets_div',
                     sayResults: true
                 } }
@@ -62,8 +62,8 @@ module.exports = function(settings, room, runtimeConf) {
             if (msg.data.success) {
                 // Mark client as requirements passed.
                 registry.updateClient(msg.from, {apt: true});
-                
-                 setTimeout(function() {                
+
+                 setTimeout(function() {
                      channel.moveClient(msg.from, channel.waitingRoom.name);
                  }, 1000);
             }
@@ -74,7 +74,7 @@ module.exports = function(settings, room, runtimeConf) {
     stager.addStage({
         id: 'requirements',
         cb: function() {
-            console.log('Requirements: AH!');
+            console.log('Requirements room created.');
         }
     });
 
