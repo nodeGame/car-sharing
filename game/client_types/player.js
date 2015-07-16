@@ -115,8 +115,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 if (s.info) {
                     W.getElementById('car-amount').innerHTML =
-                        ' to <strong>' + (Math.floor(n*s.carLevel) || 1) +
-                        '</strong> cars';
+                        ' to <strong>' + s.carLevel * 100  + '&#37; ' +
+                        '</strong> of participants';
                 }
 
                 button = W.getElementById('read');
@@ -373,12 +373,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 node.env('auto', function() {
                     node.timer.randomExec(function() {
-                        node.socket.disconnect();
-                        window.close();
-                     }, 60000);
+                        node.done();
+                     }, 3000);
                 });
             });
         }
+    });
+
+    // Gameover will be executed only in 'auto' mode.
+    stager.setOnGameOver(function() {
+        node.timer.randomExec(function() {
+            node.socket.disconnect();
+            window.close();
+        }, 60000);
     });
 
     game = setup;

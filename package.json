@@ -3,6 +3,13 @@
     "version": "0.0.1",
     "description": "Car sharing vs public transport choice",
     "author": "Stefano Balietti <futur.dorko@gmail.com>",
-    "license": "MIT/X11",
-    "homepage": "http://nodegame.org"
+    "license": "MIT",
+    "homepage": "http://nodegame.org",
+    "devDependencies": {
+      "mocha": ">= 2.1.0",
+      "should": ">= 5.0.0"
+    },
+    "scripts": {
+       "test": "./node_modules/.bin/mocha ./test/test.*.js"
+    }
 }
