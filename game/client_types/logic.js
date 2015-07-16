@@ -49,7 +49,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             if (node.game.compareCurrentStep('end') === 0) {
                 payoff = doCheckout(p);
                 // If player was not checkout yet, do it.
-                if (payoff) postPayoffs([payoff]);                    
+                if (payoff) postPayoffs([payoff]);
             }
         });
 
@@ -62,10 +62,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         // Sort: car first, and cars are sorted by departure time.
         node.game.memory.globalCompare = function(a, b) {
-            if (a.decision === 'car' && b.decision === 'bus') return -1;
-            if (a.decision === 'bus' && b.decision === 'car') return 1;
-            if (a.departureTime < b.departureTime) return -1;
-            if (a.departureTime > b.departureTime) return 1;
+            if (a.value.decision === 'car' && b.value.decision === 'bus') {
+                return -1;
+            }
+            if (a.value.decision === 'bus' && b.value.decision === 'car') {
+                return 1;
+            }
+            if (a.value.departureTime < b.value.departureTime) return -1;
+            if (a.value.departureTime > b.value.departureTime) return 1;
             return Math.random(0,1) > 0.5 ? -1 : 1;
         };
 
@@ -78,7 +82,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     payoff = s.carY + (s.slopePayoff * e.value.departureTime);
                 }
                 else {
-                    payoff = 0; // s.busY - (s.slopePayoff * e.value.departureTime);
+                    payoff = 0;
+                    // s.busY - (s.slopePayoff * e.value.departureTime);
                 }
             }
             else {
@@ -210,7 +215,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     function doCheckout(p) {
         var code;
         code = channel.registry.getClient(p.id);
-        if (code.checkout) {            
+        if (code.checkout) {
             node.remoteAlert('Hi! It looks like you have already ' +
                              'completed this game.', p.id);
             return;
