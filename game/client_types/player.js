@@ -261,7 +261,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 chosenBus = W.getElementById('chosen-bus');
                 chosenCar = W.getElementById('chosen-car');
-                avgDepartureCar = W.getElementById('average-car-departure');
+                // avgDepartureCar = W.getElementById('average-car-departure');
 
                 choice = W.getElementById('choice');
                 departure = W.getElementById('departure');
@@ -269,9 +269,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 arrivalActual = W.getElementById('arrival-actual');
                 payoff = W.getElementById('payoff');
 
-                if (node.game.settings.info) {
-                    spanAvgDep = W.getElementById('span-avg-car-departure');
-                }
+                // if (node.game.settings.info) {
+                // spanAvgDep = W.getElementById('span-avg-car-departure');
+                // }
 
                 button = W.getElementById('continue');
 
@@ -286,12 +286,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     chosenBus.innerHTML = results.global.totBus;
                     chosenCar.innerHTML = results.global.totCar;
 
-                    if (node.game.settings.info) {
-                        depTime = results.global.avgDepartureCar === 'NA' ?
-                            'N/A' : f(results.global.avgDepartureCar);
-                        avgDepartureCar.innerHTML = depTime;
-                        spanAvgDep.style.display = '';
-                    }
+//                     if (node.game.settings.info) {
+//                         depTime = results.global.avgDepartureCar === 'NA' ?
+//                             'N/A' : f(results.global.avgDepartureCar);
+//                         avgDepartureCar.innerHTML = depTime;
+//                         spanAvgDep.style.display = '';
+//                     }
 
                     if (results.decision === 'car') {
                         expectedTime = actualTime = f(results.departure, 1);
