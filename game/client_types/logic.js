@@ -53,11 +53,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
         });
 
-        // TODO: Check why it did not work!
-        node.on('in.set.DATA', function(o) {
-            o.treatment = treatmentName;
-            o.session = node.nodename;
-            // console.log('in.set.DATA ', o);
+        node.on('in.set.DATA', function(msg) {
+            msg.data.treatment = treatmentName;
+            msg.data.session = node.nodename;
         });
 
         // Sort: car first, and cars are sorted by departure time.

@@ -21,7 +21,7 @@ module.exports = {
     // Variables shared by all treatments.
 
     // Session counter.
-    SESSION_ID: 1,
+    SESSION_ID: 2,
 
     // Numnber of game rounds repetitions.
     // TODO: if the value is changed the QUIZ page needs to be updated.
@@ -37,7 +37,7 @@ module.exports = {
     exchangeRate: 0.001,
 
     timer: {
-    
+
         instructions1: 90000,
         instructions2: 60000,
         quiz: 90000,
@@ -206,8 +206,8 @@ module.exports = {
         },
 
 ///
-   
-        
+
+
         noinfo_car25_p7040: {
             info: false,
             carLevel: 0.25,
