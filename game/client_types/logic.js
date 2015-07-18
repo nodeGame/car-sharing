@@ -231,7 +231,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         return {
             AccessCode: p.id,
             Bonus: Math.floor(code.payoff * settings.exchangeRate),
-            BonusReason: 'good boy'
+            BonusReason: 'Full bonus.'
         };
     }
 
