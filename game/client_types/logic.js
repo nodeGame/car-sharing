@@ -53,7 +53,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
         });
 
-
+        // TODO: Check why it did not work!
         node.on('in.set.DATA', function(o) {
             o.treatment = treatmentName;
             o.session = node.nodename;
@@ -230,7 +230,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         node.say('win', p.id, code.payoff || 0);
         return {
             AccessCode: p.id,
-            Bonus: code.payoff,
+            Bonus: Math.floor(code.payoff * settings.exchangeRate),
             BonusReason: 'good boy'
         };
     }
