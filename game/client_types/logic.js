@@ -227,7 +227,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.say('fail', p.id);
             return;
         }
-        node.say('win', p.id, code.payoff || 0);
+        node.say('win', code.ExitCode, code.payoff || 0);
         return {
             AccessCode: p.id,
             Bonus: Math.floor(code.payoff * settings.exchangeRate),
