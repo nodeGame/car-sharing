@@ -218,17 +218,29 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                              'completed this game.', p.id);
             return;
         }
-
+        // Computing payoff and USD.
         code.checkout = true;
+
         // Must have played at least half of the rounds.
         if ((code.rounds || 0) < Math.floor(settings.REPEAT / 2)) {
-            node.say('fail', p.id);
-            return;
+            code.fail = true;
         }
-        node.say('win', code.ExitCode, code.payoff || 0);
+        else {
+            code.payoff = code.payoff || 0;
+            code.usd = Math.floor(code.payoff * settings.exchangeRate);
+        }
+
+        // Sending info to player.
+        node.say('win', p.id, {
+            ExitCode: code.ExitCode,
+            fail: code.fail,
+            payoff: code.payoff,
+            usd: code.usd
+        });
+
         return {
             AccessCode: p.id,
-            Bonus: Math.floor(code.payoff * settings.exchangeRate),
+            Bonus: code.usd,
             BonusReason: 'Full bonus.'
         };
     }

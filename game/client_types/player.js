@@ -337,6 +337,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             // Reset visual timer (hack).
             node.game.visualTimer.startTiming({milliseconds: 5000});
             node.game.visualTimer.setToZero();
+
             W.loadFrame('end.htm', function() {
                 var spanCode;
 
@@ -344,28 +345,34 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 spanCode.innerHTML = node.player.id;
 
                 node.on.data('win', function(msg) {
-                    var spanFee, spanEcu, spanDollars;
+                    var spanFee, spanEcu, spanDollars, exitCode;
+                    var fail
 
-                    spanFee = W.getElementById('span-fee');
-                    spanFee.innerHTML = node.game.settings.showupFee;
+                    if (msg.data.fail) {
+                        fail = W.getElementById('fail');
+                        fail.innerHTML = 'Unfortunately, you did not ' +
+                            'complete at least 50% of the rounds in the game' +
+                            ', <br/> therefore you have not earned a payment.';
+                        fail.style.display = '';
+                    }
+                    else {
 
-                    spanEcu = W.getElementById('span-ecu');
-                    spanDollars = W.getElementById('span-dollars');
+                        spanFee = W.getElementById('span-fee');
+                        spanFee.innerHTML = node.game.settings.showupFee;
 
-                    spanEcu.innerHTML = msg.data;
-                    spanDollars.innerHTML =
-                        (msg.data * node.game.settings.exchangeRate).toFixed(2);
+                        spanEcu = W.getElementById('span-ecu');
+                        spanDollars = W.getElementById('span-dollars');
 
-                    W.getElementById('win').style.display = '';
-                });
+                        spanEcu.innerHTML = msg.data.payoff;
+                        spanDollars.innerHTML = msg.data.usd;
 
-                node.on.data('fail', function() {
-                    var fail;
-                    fail = W.getElementById('fail');
-                    fail.innerHTML = 'Unfortunately, you did not complete ' +
-                        'at least 50% of the rounds in this experiment, ' +
-                        '<br/> therefore you have not earned a payment.';
-                    fail.style.display = '';
+                        if (msg.data.ExitCode) {
+                            exitCode = W.getElementById('exit-code');
+                            exitCode.innerHTML = msg.data.ExitCode;
+                        }
+
+                        W.getElementById('win').style.display = '';
+                    }
                 });
 
                 // Remove warning for closing the tab.
