@@ -46,8 +46,8 @@ module.exports = {
             return 15000;
         },
         results: function() {
-            if (node.player.stage.round === 1) return 45000;
-            return 15000;
+            if (node.player.stage.round === 1) return 30000;
+            return 10000;
         }
 
     },
@@ -60,49 +60,43 @@ module.exports = {
             info: false,
             carLevel: 0.25,
             carY: 40,
-            busY: 60,
-            payoff: '60/40'
+            busY: 60
         },
 
-        info_car25_p6040: {
-            info: true,
-            carLevel: 0.25,
-            carY: 40,
-            busY: 60,
-            payoff: '60/40'
-        },
+//        info_car25_p6040: {
+//            info: true,
+//            carLevel: 0.25,
+//            carY: 40,
+//            busY: 60
+//        },
 
         noinfo_car50_p6040: {
             info: false,
             carLevel: 0.5,
             carY: 40,
-            busY: 60,
-            payoff: '60/40'
+            busY: 60
         },
 
-        info_car50_p6040: {
-            info: true,
-            carLevel: 0.5,
-            carY: 40,
-            busY: 60,
-            payoff: '60/40'
-        },
+//        info_car50_p6040: {
+//            info: true,
+//            carLevel: 0.5,
+//            carY: 40,
+//            busY: 60
+//        },
 
         noinfo_car75_p6040: {
             info: false,
             carLevel: 0.75,
             carY: 40,
-            busY: 60,
-            payoff: '60/40'
+            busY: 60
         },
 
-        info_car75_p6040: {
-            info: true,
-            carLevel: 0.75,
-            carY: 40,
-            busY: 60,
-            payoff: '60/40'
-        },
+//         info_car75_p6040: {
+//             info: true,
+//             carLevel: 0.75,
+//             carY: 40,
+//             busY: 60
+//         },
 
 ////
 
@@ -110,156 +104,133 @@ module.exports = {
             info: false,
             carLevel: 0.25,
             carY: 30,
-            busY: 70,
-            payoff: '70/30'
+            busY: 70
         },
 
-        info_car25_p7030: {
-            info: true,
-            carLevel: 0.25,
-            carY: 30,
-            busY: 70,
-            payoff: '70/30'
-        },
+//        info_car25_p7030: {
+//            info: true,
+//            carLevel: 0.25,
+//            carY: 30,
+//            busY: 70
+//        },
 
         noinfo_car50_p7030: {
             info: false,
             carLevel: 0.5,
             carY: 30,
-            busY: 70,
-            payoff: '70/30'
+            busY: 70
         },
 
-        info_car50_p7030: {
-            info: true,
-            carLevel: 0.5,
-            carY: 30,
-            busY: 70,
-            payoff: '70/30'
-        },
+//         info_car50_p7030: {
+//             info: true,
+//             carLevel: 0.5,
+//             carY: 30,
+//             busY: 70
+//         },
 
         noinfo_car75_p7030: {
             info: false,
             carLevel: 0.75,
             carY: 30,
-            busY: 70,
-            payoff: '70/30'
+            busY: 70
         },
 
-        info_car75_p7030: {
-            info: true,
-            carLevel: 0.75,
-            carY: 30,
-            busY: 70,
-            payoff: '70/30'
-        },
+//         info_car75_p7030: {
+//             info: true,
+//             carLevel: 0.75,
+//             carY: 30,
+//             busY: 70
+//         },
 
 ///
 
 
-        noinfo_car25_p6030: {
-            info: false,
-            carLevel: 0.25,
-            carY: 30,
-            busY: 60,
-            payoff: '60/30'
-        },
-
-        info_car25_p6030: {
-            info: true,
-            carLevel: 0.25,
-            carY: 30,
-            busY: 60,
-            payoff: '60/30'
-        },
-
-        noinfo_car50_p6030: {
-            info: false,
-            carLevel: 0.5,
-            carY: 30,
-            busY: 60,
-            payoff: '60/30'
-        },
-
-        info_car50_p6030: {
-            info: true,
-            carLevel: 0.5,
-            carY: 30,
-            busY: 60,
-            payoff: '60/30'
-        },
-
-        noinfo_car75_p6030: {
-            info: false,
-            carLevel: 0.75,
-            carY: 30,
-            busY: 60,
-            payoff: '60/30'
-        },
-
-        info_car75_p6030: {
-            info: true,
-            carLevel: 0.75,
-            carY: 30,
-            busY: 60,
-            payoff: '60/30'
-        },
+//         noinfo_car25_p6030: {
+//             info: false,
+//             carLevel: 0.25,
+//             carY: 30,
+//             busY: 60
+//         },
+//
+//         info_car25_p6030: {
+//             info: true,
+//             carLevel: 0.25,
+//             carY: 30,
+//             busY: 60
+//         },
+//
+//         noinfo_car50_p6030: {
+//             info: false,
+//             carLevel: 0.5,
+//             carY: 30,
+//             busY: 60
+//         },
+//
+//         info_car50_p6030: {
+//             info: true,
+//             carLevel: 0.5,
+//             carY: 30,
+//             busY: 60
+//         },
+//
+//         noinfo_car75_p6030: {
+//             info: false,
+//             carLevel: 0.75,
+//             carY: 30,
+//             busY: 60
+//         },
+//
+//         info_car75_p6030: {
+//             info: true,
+//             carLevel: 0.75,
+//             carY: 30,
+//             busY: 60
+//         },
 
 ///
 
 
-        noinfo_car25_p7040: {
-            info: false,
-            carLevel: 0.25,
-            carY: 40,
-            busY: 70,
-            payoff: '70/40'
-        },
-
-        info_car25_p7040: {
-            info: true,
-            carLevel: 0.25,
-            carY: 40,
-            busY: 70,
-            payoff: '70/40'
-        },
-
-        noinfo_car50_p7040: {
-            info: false,
-            carLevel: 0.5,
-            carY: 40,
-            busY: 70,
-            payoff: '70/40'
-        },
-
-        info_car50_p7040: {
-            info: true,
-            carLevel: 0.5,
-            carY: 40,
-            busY: 70,
-            payoff: '70/40'
-        },
-
-        noinfo_car75_p7040: {
-            info: false,
-            carLevel: 0.75,
-            carY: 40,
-            busY: 70,
-            payoff: '70/40'
-        },
-
-        info_car75_p7040: {
-            info: true,
-            carLevel: 0.75,
-            carY: 40,
-            busY: 70,
-            payoff: '70/40'
-        },
-
-///
-
-
-
+//         noinfo_car25_p7040: {
+//             info: false,
+//             carLevel: 0.25,
+//             carY: 40,
+//             busY: 70
+//         },
+//
+//         info_car25_p7040: {
+//             info: true,
+//             carLevel: 0.25,
+//             carY: 40,
+//             busY: 70
+//         },
+//
+//         noinfo_car50_p7040: {
+//             info: false,
+//             carLevel: 0.5,
+//             carY: 40,
+//             busY: 70
+//         },
+//
+//         info_car50_p7040: {
+//             info: true,
+//             carLevel: 0.5,
+//             carY: 40,
+//             busY: 70
+//         },
+//
+//         noinfo_car75_p7040: {
+//             info: false,
+//             carLevel: 0.75,
+//             carY: 40,
+//             busY: 70
+//         },
+//
+//         info_car75_p7040: {
+//             info: true,
+//             carLevel: 0.75,
+//             carY: 40,
+//             busY: 70
+//         },
 
     }
 };
