@@ -95,6 +95,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // Add widgets.
         this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
+        // Copy reference to have timeup stored on `done`. (for the time being).
+        this.timer = this.visualTimer;
     });
 
     stager.extendStep('instr1', {

@@ -63,14 +63,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         // Sort: car first, and cars are sorted by departure time.
         node.game.memory.globalCompare = function(a, b) {
-            if (a.value.decision === 'car' && b.value.decision === 'bus') {
-                return -1;
-            }
-            if (a.value.decision === 'bus' && b.value.decision === 'car') {
-                return 1;
-            }
-            if (a.value.departureTime < b.value.departureTime) return -1;
-            if (a.value.departureTime > b.value.departureTime) return 1;
+            if (a.decision === 'car' && b.decision === 'bus') return -1;
+            if (a.decision === 'bus' && b.decision === 'car') return 1;
+            if (a.departureTime < b.departureTime) return -1;
+            if (a.departureTime > b.departureTime) return 1;
             return Math.random(0,1) > 0.5 ? -1 : 1;
         };
 
@@ -78,8 +74,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             var payoff, s;
             var player;
             s = node.game.settings;
-            if (e.value.decision === 'car') {
-                payoff = node.game.slopePayoff * e.value.departureTime;
+            if (e.decision === 'car') {
+                payoff = node.game.slopePayoff * e.departureTime;
                 if (e.gotCar) {
                     payoff = s.carY + payoff
                 }
@@ -119,9 +115,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.memory.stage[stage].sort();
 
             node.game.memory.stage[stage].each(function(e) {
-                if (e.value.decision === 'car') {
+                if (e.decision === 'car') {
                     results.totCar++;
-                    results.avgDepartureCar += e.value.departureTime;
+                    results.avgDepartureCar += e.departureTime;
                     e.gotCar = carCounter++ < carLimit ? true : false;
                 }
                 else {
@@ -140,9 +136,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.memory.stage[stage].each(function(e) {
                 node.say('results', e.player, {
                     global: globalResults,
-                    decision: e.value.decision,
+                    decision: e.decision,
                     gotCar: e.gotCar,
-                    departure: e.value.departureTime,
+                    departure: e.departureTime,
                     payoff: e.payoff
                 });
             });
