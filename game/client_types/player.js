@@ -303,7 +303,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         }
                         else {
                             choice.innerHTML = 'Car (<em>not available!</em>)';
-                            actualTime = '14:00';
+                            actualTime = f(results.departure, 2);
                         }
                     }
                     else {
