@@ -179,11 +179,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('end', {
         cb: function() {
-            var payoffs, code, payoff;
+            var payoffs, payoff;
             payoffs = node.game.pl.map(doCheckout);
             node.game.memory.save(channel.getGameDir() + 'data/data_' +
                                   node.nodename + '.json');
-
             postPayoffs(payoffs);
         },
         stepRule: stepRules.SOLO,
