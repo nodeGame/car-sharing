@@ -255,8 +255,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         else {
             code.payoff = code.payoff || 0;
             code.usd = parseFloat(
-                (code.payoff * settings.exchangeRate)).toFixed(2),
-            10);
+                ((code.payoff * settings.exchangeRate).toFixed(2)),
+                10);
         }
 
         // Sending info to player.
