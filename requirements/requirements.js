@@ -43,7 +43,7 @@ module.exports = function(requirements, settings) {
     });
 
     requirements.onSuccess(function() {
-        var str;
+        var str, args;
         str = '%spanYou are allowed to take the HIT.%span';
         args = {
             '%span': {

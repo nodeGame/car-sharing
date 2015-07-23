@@ -147,7 +147,7 @@ table#table-results tr {
 }
 
 table#table-results td {
-    width: 250px;
+    width: 280px;
     text-align: center;
     vertical-align: top;
     padding: 10px 2px;
@@ -162,6 +162,12 @@ td#choice, td#payoff, td#departure, span#arrival-expected,
 span#arrival-actual {
    font-weight: bold;
 }
+
+.large {
+    font-size: 30px;
+    font-weight: bold;
+}
+
 
 /* End */
 

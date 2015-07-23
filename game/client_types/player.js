@@ -261,8 +261,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var chosenBus, chosenCar, avgDepartureCar, button;
                 var spanAvgDep;
 
-                chosenBus = W.getElementById('chosen-bus');
-                chosenCar = W.getElementById('chosen-car');
+                // chosenBus = W.getElementById('chosen-bus');
+                // chosenCar = W.getElementById('chosen-car');
                 // avgDepartureCar = W.getElementById('average-car-departure');
 
                 choice = W.getElementById('choice');
@@ -283,10 +283,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     results = msg.data;
                     f = node.game.formatDepartureTime;
-                    console.log('RESULTS ', results);
+                    // console.log('RESULTS ', results);
 
-                    chosenBus.innerHTML = results.global.totBus;
-                    chosenCar.innerHTML = results.global.totCar;
+                    // chosenBus.innerHTML = results.global.totBus;
+                    // chosenCar.innerHTML = results.global.totCar;
 
 //                     if (node.game.settings.info) {
 //                         depTime = results.global.avgDepartureCar === 'NA' ?

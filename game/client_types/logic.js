@@ -34,7 +34,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.slopePayoff = (100 - settings.carY) / 60;
 
         node.on.preconnect(function(p) {
-            var code, reconStage, payoff;
+            var code, disconStage, reconStage, payoff;
 
             console.log('Oh...somebody reconnected!', p.id);
             reconStage = node.player.stage;
@@ -45,6 +45,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.remoteCommand('start', p.id, { step: false });
             // Add player to player list.
             node.game.pl.add(p);
+
+            code = channel.registry.getClient(p.id);
+
+//             if (code.disconnectStage === reconStage &&
+//                 code.doneOnDisconnect) {
+//
+//                 reconStage = { targetStep: reconStage, willBeDone: true };
+//             }
+
             // Send player to the current stage.
             node.remoteCommand('goto_step', p.id, reconStage);
 
@@ -55,6 +64,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 if (payoff) postPayoffs([payoff]);
             }
         });
+
+
+        // Replace default PDISCONNECT handler.
+//         node.events.ng.off('in.say.PDISCONNECT');
+//
+//         node.on.pdisconnect(function(p) {
+//             var code;
+//             // Mark the stage of disconnection.
+//             code = channel.registry.getClient(p.id);
+//             code.disconnectStage = node.player.stage;
+//            code.doneOnDisconnect = node.game.pl.get(p.id).stageLevel === 100;
+//             node.game.pl.remove(p.id);
+//             // Default handler.
+//             if (node.game.shouldStep()) node.game.step();
+//             node.emit('UPDATED_PLIST');
+//         });
 
         node.on('in.set.DATA', function(msg) {
             msg.data.treatment = treatmentName;

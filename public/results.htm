@@ -4,38 +4,28 @@
 <link rel="stylesheet" href="css/style.css" />
 <body>
   <div id="container">
+
     <h2>Results</h2>
-    
-    <p id="summary">
-      <span id="chosen-bus">0</span> player/s selected the bus option.
-      <br/>
-      <span id="chosen-car">0</span> player/s selected the car
-      option.
-      <span id="span-avg-car-departure" style="display: none">        
-        <br/>Average departure time of cars <span id="average-car-departure">NA</span>.
-      </span>
-    </p>
 
-    <br/><br/>
+    <br/<br/>
 
-    <h4>Your Choice</h4>
     <table id="table-results">
       <tr>
-        <td>Choice</td><td id="choice">Bus / Car</td>
+        <td>Your Choice</td><td id="choice" class="large"</td>
       </tr>
 
       <tr>
-        <td>Payoff</td><td id="payoff">X</td>
+        <td>Your Payoff</td><td id="payoff" class="large"></td>
       </tr>
 
       <tr>
-        <td>Departure time</td><td id="departure">X</td>
+        <td>Departure time</td><td id="departure" class="large"></td>
       </tr>
 
       <tr>
         <td>Arrival time <br/> (expected / actual)</td>
-        <td>
-          <span id="arrival-expected">X</span> / <span id="arrival-actual">X</span>
+        <td class="large">
+          <span id="arrival-expected"></span> / <span id="arrival-actual"></span>
         </td>
       </tr>
 
