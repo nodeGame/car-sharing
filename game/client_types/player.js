@@ -113,6 +113,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 W.getElementById('payoff-car').innerHTML = s.carY;
                 W.getElementById('payoff-car-2').innerHTML = s.carY;
+                W.getElementById('payoff-not-car').innerHTML = s.carY;
                 W.getElementById('payoff-bus').innerHTML = s.busY;
 
                 if (s.info) {

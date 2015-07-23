@@ -30,8 +30,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.setOnInit(function() {
         // Initialize the client.
 
-        // Compute the slope. (TODO: check below).
-        this.slopePayoff = (100 - settings.carY) / 60;
+        // Compute the slope.
+        this.slopeCar = (100 - settings.carY) / 60;
+        this.slopeCarMiss = settings.carY / 60;
 
         node.on.preconnect(function(p) {
             var code, disconStage, reconStage, payoff;
@@ -100,14 +101,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             var player;
             s = node.game.settings;
             if (e.decision === 'car') {
-                payoff = node.game.slopePayoff * e.departureTime;
                 if (e.gotCar) {
-                    payoff = s.carY + payoff
+                    payoff = s.carY + (node.game.slopeCar * e.departureTime);
                 }
                 else {
                     // payoff = 0;
-                    payoff = s.busY - payoff
+                    payoff = s.carY -
+                        (node.game.slopeCarMiss * e.departureTime);
                 }
+                // Rounding it.
+                payoff = parseFloat(payoff.toFixed(2), 10);
             }
             else {
                 payoff = s.busY;

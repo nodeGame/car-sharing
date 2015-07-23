@@ -26,7 +26,8 @@ div#payoff-info ul li {
     margin-bottom: 10px;
 }
 
-span#payoff-car, span#payoff-car-2, span#payoff-bus, span#players-count, span#car-number {
+span#payoff-car, span#payoff-car-2, span#payoff-not-car,
+span#payoff-bus, span#players-count, span#car-number {
    font-weight: bold;
 }
 
