@@ -26,13 +26,14 @@ module.exports = {
     // maximum waiting time of a player in the waiting room expires.
     ON_TIMEOUT: function(data) {
         // Do something.
+        var timeOut;
 
         // Enough Time passed, not enough players connected.
         if (data.over === 'Time elapsed!!!') {
 
             timeOut = "<h3 align='center'>Thank you for your patience.<br>";
             timeOut += "Unfortunately, there are not enough participants in ";
-            timeOut += "your group to start the experiment.<br>";   
+            timeOut += "your group to start the experiment.<br>";
         }
 
         // Too much time passed, but no message from server received.
