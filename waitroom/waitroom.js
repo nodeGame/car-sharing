@@ -50,12 +50,26 @@ module.exports = function(settings, waitRoom, runtimeConf) {
 
             // See if an access code is defined, if so checkout remotely also.
             code = channel.registry.getClient(playerID);
+            if (code.AccessCode) {
+                dk.checkOut(code.id, code.ExitCode, 0.0, function(
+                    err, response, body) {
+                    if (err) {
+                        console.log('NOT GOOD: waiting room failed check-out: ',
+                                    code.id);
+                    }
+                    else {
+                        console.log('Waiting room check-out: ', code.id);
+                    }
+                });
+            }
 
             timeOutData = {
                 over: "Time elapsed!!!",
                 exit: code.ExitCode
             };
             node.say("TIME", playerID, timeOutData);
+
+
 
         }, MAX_WAIT_TIME);
 
