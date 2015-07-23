@@ -12,6 +12,7 @@
 module.exports = function(settings, waitRoom, runtimeConf) {
 
     // Load the code database.
+    var dk = require('descil-mturk')();
     var J = require('JSUS').JSUS;
 
     var node = waitRoom.node;
