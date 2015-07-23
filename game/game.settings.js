@@ -28,7 +28,7 @@ module.exports = {
     REPEAT: 2,
 
     // Show up fee.
-    showupFee: 1,
+    showupFee: 1.2,
 
     // Slope of the payoff curve.
     slopePayoff: 1,
@@ -46,8 +46,8 @@ module.exports = {
             return 15000;
         },
         results: function() {
-            if (node.player.stage.round === 1) return 30000;
-            return 10000;
+            if (node.player.stage.round === 1) return 20000;
+            return 8000;
         }
 
     },
