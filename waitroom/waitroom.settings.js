@@ -9,10 +9,10 @@
 module.exports = {
 
     // How many clients must connect before groups are formed.
-    POOL_SIZE: 10,
+    POOL_SIZE: 3,
 
     // The size of each group.
-    GROUP_SIZE: 10,
+    GROUP_SIZE: 3,
 
     // Treatment assigned to groups.
     // If left undefined, a random treatment will be selected.
@@ -45,7 +45,8 @@ module.exports = {
         }
 
         if (data.exit) {
-            timeOut += "<br>Please report this exit code: " + data.exit;
+            timeOut += "<br>Please submit the HIT using this exit code: " +
+                data.exit;
         }
 
         timeOut += "<br></h3>";

@@ -102,6 +102,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.visualTimer = node.widgets.append('VisualTimer', header);
         // Copy reference to have timeup stored on `done`. (for the time being).
         this.timer = this.visualTimer;
+
+        node.on('get.pushGame', function() {
+            console.log('BEING PUSHED!');
+            node.game.visualTimer.doTimeUp();
+            return 'ok!';
+        });
+
     });
 
     stager.extendStep('instr1', {
@@ -151,7 +158,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             });
         },
-        timer: settings.timer.instructions1
+        timer: settings.timer.instr1
     });
 
 
@@ -190,7 +197,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             });
         },
-        timer: settings.timer.instructions2
+        timer: settings.timer.instr2
     });
 
     stager.extendStep('quiz', {

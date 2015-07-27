@@ -12,6 +12,7 @@
 var ngc = require('nodegame-client');
 var J = require('JSUS').JSUS;
 var stepRules = ngc.stepRules;
+var GameStage = ngc.GameStage;
 
 var counter = 0;
 
@@ -22,7 +23,23 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     var dk = require('descil-mturk')();
 
+    var currPushGame;
+
     // Must implement the stages here.
+
+    node.events.game.on('PLAYING', function() {
+        var stage, timer;
+        console.log('Clearing push game function.');
+        if (currPushGame) clearTimeout(currPushGame);
+        stage = node.game.getCurrentStepObj().id;
+        if (stage === 'end') return;
+        console.log('Setting push game function.');
+
+        timer = settings.timer[stage];
+        if ('function' === typeof timer) timer = timer.call(node.game);
+
+        currPushGame = setTimeout(pushGame, (timer + 10000));
+    });
 
     // Increment counter.
     counter = counter ? ++counter : settings.SESSION_ID || 1;
@@ -86,9 +103,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('Oh...somebody disconnected ', p.id);
         });
 
+        // Remove default.
+        node.off('in.set.DATA');
+        node.game.memory.index('plage', function(o) {
+            return o.stage + '_' + o.player
+        });
         node.on('in.set.DATA', function(msg) {
-            msg.data.treatment = treatmentName;
-            msg.data.session = node.nodename;
+            var o = msg.data;
+
+            // Remove any other SET DONE in the same stage by the same player.
+            if (o.done) {
+                node.game.memory.plage.remove(msg.stage + '_' + msg.from);
+            }
+
+            // Decorate it.
+            o.player = msg.from;
+            o.stage = msg.stage;
+            o.treatment = treatmentName;
+            o.session = node.nodename;
+
+            // Add it to memory.
+            node.game.memory.insert(o);
         });
 
         // Sort: car first, and cars are sorted by departure time.
@@ -286,4 +321,60 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
         });
     }
+
+    function pushGame() {
+        console.log('Checking if we need to push...');
+        node.game.pl.each(function(p) {
+            var stage;
+            if (p.stageLevel !== 100) {
+                console.log('Push needed ', p.id);
+                stage = p.stage;
+                node.get('pushGame',
+                         function(value) {
+                             checkIfPushWorked(p);
+                         },
+                         p.id,
+                         {
+                             timeoutCb: function() {
+                                 // No reply to GET, disconnect client.
+                                 console.log('No reply from PUSH.');
+                                 forceDisconnect(p);
+                             },
+                             timeout: 4000,
+                             executeOnce: true
+                         });
+            }
+        });
+    }
+
+    function forceDisconnect(p) {
+        var socket;
+        console.log('disconnecting ', p.id);
+        socket = channel.playerServer.socketManager
+            .clients[p.id];
+        socket.disconnect(p.sid);
+    }
+
+    function checkIfPushWorked(p) {
+        var stage;
+        console.log('check if push worked ', p.id);
+        stage = {
+            stage: p.stage.stage, step: p.stage.step, round: p.stage.round
+        };
+        setTimeout(function() {
+            var pp;
+            if (node.game.pl.exist(p.id)) {
+                pp = node.game.pl.get(p.id);
+                if (GameStage.compare(pp.stage, stage) === 0) {
+                    console.log('push did not work ', p.id);
+                    // console.log(pp.stage, p.stage);
+                    forceDisconnect(pp);
+                }
+                else {
+                    console.log('push worked ', p.id);
+                }
+            }
+        }, 5000);
+    }
+
 };
