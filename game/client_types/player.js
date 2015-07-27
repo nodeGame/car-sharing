@@ -448,7 +448,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         spanEcu = W.getElementById('span-ecu');
                         spanDollars = W.getElementById('span-dollars');
 
-                        spanEcu.innerHTML = msg.data.payoff;
+                        spanEcu.innerHTML = parseFloat(msg.data.payoff, 10)
+                            .toFixed(2);
                         spanDollars.innerHTML = msg.data.usd;
 
                         if (msg.data.ExitCode) {
