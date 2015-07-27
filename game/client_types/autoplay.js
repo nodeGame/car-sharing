@@ -14,6 +14,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     game = gameRoom.getClientType('player');
     game.env.auto_disconnect = true;
+    // game.env.auto = true;
     game.nodename = 'autoplay';
 
     return game;
