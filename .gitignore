@@ -13,8 +13,10 @@ Session.vim
 server/csv
 server/data
 auth/descil.conf.js
+data/*.csv
+data/*.json
+data/*.js
 
-data
 node_modules
 
 channel/channel.credentials.js

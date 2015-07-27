@@ -82,6 +82,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 //             node.emit('UPDATED_PLIST');
 //         });
 
+        node.on.pdisconnect(function(p) {
+            console.log('Oh...somebody disconnected ', p.id);
+        });
+
         node.on('in.set.DATA', function(msg) {
             msg.data.treatment = treatmentName;
             msg.data.session = node.nodename;

@@ -23,7 +23,7 @@ window.onload = function() {
         },
         socket : {
             type : 'SocketIo',
-            reconnect : false
+            reconnection : false
         }
     });
 

@@ -25,6 +25,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         var header, frame;
 
+//         node.on('SOCKET_DISCONNECT', function() {
+//             alert('Disconnection from server detected.\n' +
+//                   'You might not be able to send and receive messages.');
+//         });
+
         node.game.lastDepartureTime = null;
         node.game.lastDecision = null;
 
@@ -133,6 +138,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                      }, 3000);
                  });
 
+                 node.env('auto_disconnect', function() {
+                     if (Math.random() < 0.5) {
+                         node.socket.disconnect();
+                         node.game.stop();
+                         node.timer.randomExec(function() {
+                             node.socket.reconnect();
+                         }, 4000);
+                     }
+                     else {
+                         node.timer.randomExec(function() {
+                             button.click();
+                         }, 3000);
+                     }
+                 });
+
             });
         },
         timer: settings.timer.instructions1
@@ -160,6 +180,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         button.click();
                     }, 3000);
                 });
+
+                 node.env('auto_disconnect', function() {
+                     if (Math.random() < 0.5) {
+                         node.socket.disconnect();
+                         node.game.stop();
+                         node.timer.randomExec(function() {
+                             node.socket.reconnect();
+                         }, 4000);
+                     }
+                     else {
+                         node.timer.randomExec(function() {
+                             button.click();
+                         }, 3000);
+                     }
+                 });
 
             });
         },
@@ -189,6 +224,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         node.game.visualTimer.doTimeUp();
                     });
                 });
+
+                node.env('auto_disconnect', function() {
+                    if (Math.random() < 0.5) {
+                        node.socket.disconnect();
+                        node.game.stop();
+                        node.timer.randomExec(function() {
+                            node.socket.reconnect();
+                        }, 4000);
+                    }
+                    else {
+                        node.timer.randomExec(function() {
+                            node.game.visualTimer.doTimeUp();
+                        });
+                    }
+                });
+
                 console.log('Quiz');
             });
         },
@@ -242,6 +293,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         node.game.randomDecision();
                     }, 3000);
                 });
+
+                 node.env('auto_disconnect', function() {
+                     if (Math.random() < 0.5) {
+                         node.socket.disconnect();
+                         node.game.stop();
+                         node.timer.randomExec(function() {
+                             node.socket.reconnect();
+                         }, 4000);
+                     }
+                     else {
+                         node.timer.randomExec(function() {
+                             node.game.randomDecision();
+                         }, 3000);
+                     }
+                 });
 
             });
 
@@ -328,6 +394,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         }, 3000);
                     });
 
+
+                    node.env('auto_disconnect', function() {
+                        if (Math.random() < 0.5) {
+                            node.socket.disconnect();
+                            node.game.stop();
+                            node.timer.randomExec(function() {
+                                node.socket.reconnect();
+                            }, 4000);
+                        }
+                        else {
+                            node.timer.randomExec(function() {
+                                button.click();
+                            }, 3000);
+                        }
+                    });
+
                 });
             });
         },
@@ -385,6 +467,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.timer.randomExec(function() {
                         node.done();
                      }, 3000);
+                });
+
+                node.env('auto_disconnect', function() {
+                    if (Math.random() < 0.5) {
+                        node.socket.disconnect();
+                        node.game.stop();
+                        node.timer.randomExec(function() {
+                            node.socket.reconnect();
+                        }, 4000);
+                    }
+                    else {
+                        node.timer.randomExec(function() {
+                            node.done();
+                        }, 3000);
+                    }
                 });
             });
         }
