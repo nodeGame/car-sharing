@@ -132,26 +132,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.done();
                 };
 
-                 node.env('auto', function() {
-                     node.timer.randomExec(function() {
-                         button.click();
-                     }, 3000);
-                 });
-
-                 node.env('auto_disconnect', function() {
-                     if (Math.random() < 0.5) {
-                         node.socket.disconnect();
-                         node.game.stop();
-                         node.timer.randomExec(function() {
-                             node.socket.reconnect();
-                         }, 4000);
-                     }
-                     else {
-                         node.timer.randomExec(function() {
-                             button.click();
-                         }, 3000);
-                     }
-                 });
+                node.env('auto', function() {
+                    if (node.env('allowDisconnect') && Math.random() < 0.5) {
+                        node.socket.disconnect();
+                        node.game.stop();
+                        node.timer.randomExec(function() {
+                            node.socket.reconnect();
+                        }, 4000);
+                    }
+                    else {
+                        if (!node.env('allowTimeup') || Math.random() < 0.5) {
+                            node.timer.randomExec(function() {
+                                button.click();
+                            }, 3000);
+                        }
+                    }
+                });
 
             });
         },
@@ -176,25 +172,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 };
 
                 node.env('auto', function() {
-                    node.timer.randomExec(function() {
-                        button.click();
-                    }, 3000);
+                    if (node.env('allowDisconnect') && Math.random() < 0.5) {
+                        node.socket.disconnect();
+                        node.game.stop();
+                        node.timer.randomExec(function() {
+                            node.socket.reconnect();
+                        }, 4000);
+                    }
+                    else {
+                        if (!node.env('allowTimeup') || Math.random() < 0.5) {
+                            node.timer.randomExec(function() {
+                                button.click();
+                            }, 3000);
+                        }
+                    }
                 });
-
-                 node.env('auto_disconnect', function() {
-                     if (Math.random() < 0.5) {
-                         node.socket.disconnect();
-                         node.game.stop();
-                         node.timer.randomExec(function() {
-                             node.socket.reconnect();
-                         }, 4000);
-                     }
-                     else {
-                         node.timer.randomExec(function() {
-                             button.click();
-                         }, 3000);
-                     }
-                 });
 
             });
         },
@@ -220,13 +212,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 });
 
                 node.env('auto', function() {
-                    node.timer.randomExec(function() {
-                        node.game.visualTimer.doTimeUp();
-                    });
-                });
-
-                node.env('auto_disconnect', function() {
-                    if (Math.random() < 0.5) {
+                    if (node.env('allowDisconnect') && Math.random() < 0.5) {
                         node.socket.disconnect();
                         node.game.stop();
                         node.timer.randomExec(function() {
@@ -234,9 +220,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         }, 4000);
                     }
                     else {
-                        node.timer.randomExec(function() {
-                            node.game.visualTimer.doTimeUp();
-                        });
+                        if (!node.env('allowTimeup') || Math.random() < 0.5) {
+                            node.timer.randomExec(function() {
+                                node.game.visualTimer.doTimeUp();
+                            });
+                        }
                     }
                 });
 
@@ -288,14 +276,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     });
                 };
 
-                node.env('auto', function() {
-                    node.timer.randomExec(function() {
-                        node.game.randomDecision();
-                    }, 3000);
-                });
-
-                 node.env('auto_disconnect', function() {
-                     if (Math.random() < 0.5) {
+                 node.env('auto', function() {
+                     if (node.env('allowDisconnect') && Math.random() < 0.5) {
                          node.socket.disconnect();
                          node.game.stop();
                          node.timer.randomExec(function() {
@@ -303,9 +285,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                          }, 4000);
                      }
                      else {
-                         node.timer.randomExec(function() {
-                             node.game.randomDecision();
-                         }, 3000);
+                        if (!node.env('allowTimeup') || Math.random() < 0.5) {
+                            node.timer.randomExec(function() {
+                                node.game.randomDecision();
+                            }, 3000);
+                        }
                      }
                  });
 
@@ -389,14 +373,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     };
 
                     node.env('auto', function() {
-                        node.timer.randomExec(function() {
-                            button.click();
-                        }, 3000);
-                    });
+                        if (node.env('allowDisconnect') &&
+                            Math.random() < 0.5) {
 
-
-                    node.env('auto_disconnect', function() {
-                        if (Math.random() < 0.5) {
                             node.socket.disconnect();
                             node.game.stop();
                             node.timer.randomExec(function() {
@@ -404,9 +383,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                             }, 4000);
                         }
                         else {
-                            node.timer.randomExec(function() {
-                                button.click();
-                            }, 3000);
+                            if (!node.env('allowTimeup') ||
+                                Math.random() < 0.5) {
+
+                                node.timer.randomExec(function() {
+                                    button.click();
+                                }, 3000);
+                            }
                         }
                     });
 
@@ -465,13 +448,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 W.restoreOnleave();
 
                 node.env('auto', function() {
-                    node.timer.randomExec(function() {
-                        node.done();
-                     }, 3000);
-                });
-
-                node.env('auto_disconnect', function() {
-                    if (Math.random() < 0.5) {
+                    if (node.env('allowDisconnect') && Math.random() < 0.5) {
                         node.socket.disconnect();
                         node.game.stop();
                         node.timer.randomExec(function() {
@@ -479,9 +456,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         }, 4000);
                     }
                     else {
-                        node.timer.randomExec(function() {
-                            node.done();
-                        }, 3000);
+                        if (!node.env('allowTimeup') ||
+                            Math.random() < 0.5) {
+
+                            node.timer.randomExec(function() {
+                                node.done();
+                            }, 3000);
+                        }
                     }
                 });
             });
