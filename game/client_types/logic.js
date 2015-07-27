@@ -106,7 +106,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // Remove default.
         node.off('in.set.DATA');
         node.game.memory.index('plage', function(o) {
-            return o.stage + '_' + o.player
+            return new GameStage(o.stage).toString() + '_' + o.player
         });
         node.on('in.set.DATA', function(msg) {
             var o = msg.data;
@@ -248,6 +248,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             var payoffs, payoff;
             payoffs = node.game.pl.map(doCheckout);
+
             node.game.memory.save(channel.getGameDir() + 'data/data_' +
                                   node.nodename + '.json');
             postPayoffs(payoffs);
