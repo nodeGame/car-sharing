@@ -21,14 +21,14 @@ module.exports = {
     // Variables shared by all treatments.
 
     // Session counter.
-    SESSION_ID: 2,
+    SESSION_ID: 12,
 
     // Numnber of game rounds repetitions.
     // TODO: if the value is changed the QUIZ page needs to be updated.
-    REPEAT: 4,
+    REPEAT: 30,
 
     // Show up fee.
-    showupFee: 1.2,
+    showupFee: 1, // 27.07 -> 1.2
 
     // Slope of the payoff curve.
     slopePayoff: 1,
@@ -56,181 +56,106 @@ module.exports = {
 
     treatments: {
 
-        noinfo_car25_p6040: {
+// To try.
+
+// 50/40
+
+        noinfo_car25_p5040: {
             info: false,
             carLevel: 0.25,
             carY: 40,
-            busY: 60
+            busY: 50
         },
 
-//        info_car25_p6040: {
-//            info: true,
-//            carLevel: 0.25,
-//            carY: 40,
-//            busY: 60
-//        },
-
-        noinfo_car50_p6040: {
+        noinfo_car50_p5040: {
             info: false,
             carLevel: 0.5,
             carY: 40,
-            busY: 60
+            busY: 50
         },
 
-//        info_car50_p6040: {
-//            info: true,
-//            carLevel: 0.5,
-//            carY: 40,
-//            busY: 60
-//        },
-
-        noinfo_car75_p6040: {
+        noinfo_car75_p5040: {
             info: false,
             carLevel: 0.75,
             carY: 40,
-            busY: 60
+            busY: 50
         },
 
-//         info_car75_p6040: {
-//             info: true,
-//             carLevel: 0.75,
-//             carY: 40,
-//             busY: 60
-//         },
+// 50/30
 
-////
-
-        noinfo_car25_p7030: {
+        noinfo_car25_p5030: {
             info: false,
             carLevel: 0.25,
             carY: 30,
-            busY: 70
+            busY: 50
         },
 
-//        info_car25_p7030: {
-//            info: true,
-//            carLevel: 0.25,
-//            carY: 30,
-//            busY: 70
-//        },
-
-        noinfo_car50_p7030: {
+        noinfo_car50_p5030: {
             info: false,
             carLevel: 0.5,
             carY: 30,
-            busY: 70
+            busY: 50
         },
 
-//         info_car50_p7030: {
-//             info: true,
-//             carLevel: 0.5,
-//             carY: 30,
-//             busY: 70
-//         },
-
-        noinfo_car75_p7030: {
+        noinfo_car75_p5030: {
             info: false,
             carLevel: 0.75,
             carY: 30,
-            busY: 70
+            busY: 50
         },
 
-//         info_car75_p7030: {
-//             info: true,
+
+// Tried on 27/07/2015
+
+// // 60/40
+//
+//         noinfo_car25_p6040: {
+//             info: false,
+//             carLevel: 0.25,
+//             carY: 40,
+//             busY: 60
+//         },
+//
+//         noinfo_car50_p6040: {
+//             info: false,
+//             carLevel: 0.5,
+//             carY: 40,
+//             busY: 60
+//         },
+//
+//         noinfo_car75_p6040: {
+//             info: false,
+//             carLevel: 0.75,
+//             carY: 40,
+//             busY: 60
+//         },
+//
+// // 70/30
+//
+//         noinfo_car25_p7030: {
+//             info: false,
+//             carLevel: 0.25,
+//             carY: 30,
+//             busY: 70
+//         },
+//
+//         noinfo_car50_p7030: {
+//             info: false,
+//             carLevel: 0.5,
+//             carY: 30,
+//             busY: 70
+//         },
+//
+//         noinfo_car75_p7030: {
+//             info: false,
 //             carLevel: 0.75,
 //             carY: 30,
 //             busY: 70
 //         },
+
 
 ///
 
-
-//         noinfo_car25_p6030: {
-//             info: false,
-//             carLevel: 0.25,
-//             carY: 30,
-//             busY: 60
-//         },
-//
-//         info_car25_p6030: {
-//             info: true,
-//             carLevel: 0.25,
-//             carY: 30,
-//             busY: 60
-//         },
-//
-//         noinfo_car50_p6030: {
-//             info: false,
-//             carLevel: 0.5,
-//             carY: 30,
-//             busY: 60
-//         },
-//
-//         info_car50_p6030: {
-//             info: true,
-//             carLevel: 0.5,
-//             carY: 30,
-//             busY: 60
-//         },
-//
-//         noinfo_car75_p6030: {
-//             info: false,
-//             carLevel: 0.75,
-//             carY: 30,
-//             busY: 60
-//         },
-//
-//         info_car75_p6030: {
-//             info: true,
-//             carLevel: 0.75,
-//             carY: 30,
-//             busY: 60
-//         },
-
-///
-
-
-//         noinfo_car25_p7040: {
-//             info: false,
-//             carLevel: 0.25,
-//             carY: 40,
-//             busY: 70
-//         },
-//
-//         info_car25_p7040: {
-//             info: true,
-//             carLevel: 0.25,
-//             carY: 40,
-//             busY: 70
-//         },
-//
-//         noinfo_car50_p7040: {
-//             info: false,
-//             carLevel: 0.5,
-//             carY: 40,
-//             busY: 70
-//         },
-//
-//         info_car50_p7040: {
-//             info: true,
-//             carLevel: 0.5,
-//             carY: 40,
-//             busY: 70
-//         },
-//
-//         noinfo_car75_p7040: {
-//             info: false,
-//             carLevel: 0.75,
-//             carY: 40,
-//             busY: 70
-//         },
-//
-//         info_car75_p7040: {
-//             info: true,
-//             carLevel: 0.75,
-//             carY: 40,
-//             busY: 70
-//         },
 
     }
 };
