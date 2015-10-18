@@ -271,8 +271,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
      * Checks if a player has played enough rounds, and communicates the outcome
      *
      * @param {object} p A player object with valid id
-     * @param {object} code Optional. The code object from the registry (avoid
-     *   loading it twice)
      *
      * @return {object} A payoff object as required by descil-mturk.postPayoffs.
      *   If the player has not completed enough rounds returns undefined.

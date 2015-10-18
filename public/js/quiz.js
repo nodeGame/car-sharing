@@ -84,7 +84,7 @@
     };
 
 })({
-    rounds: 20,
+    rounds: 30,
     payoff: 1,
     buscar:  5
 });
