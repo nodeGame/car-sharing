@@ -11,43 +11,44 @@
 
 module.exports = function(stager, settings) {
 
-//     stager.addStep({
-//         id: 'instr1',
-//         cb: function() {}
-//     });
-//     stager.addStep({
-//         id: 'instr2',
-//         cb: function() {}
-//     });
-//     stager.addStep({
-//         id: 'decision',
-//         cb: function() {}
-//     });
-//     stager.addStep({
-//         id: 'results',
-//         cb: function() {}
-//     });
-//
-//     stager.addStage({
-//         id: 'instructions',
-//         steps: ['instr1', 'instr2']
-//     });
-//
-//     stager.addStage({
-//         id: 'game',
-//         steps: ['decision', 'results']
-//     });
+    stager.addStep({
+        id: 'instr1',
+        cb: function() {}
+    });
+    stager.addStep({
+        id: 'instr2',
+        cb: function() {}
+    });
+    stager.addStep({
+        id: 'decision',
+        cb: function() {}
+    });
+    stager.addStep({
+        id: 'results',
+        cb: function() {}
+    });
+
+    stager.addStage({
+        id: 'instructions',
+        steps: ['instr1', 'instr2']
+    });
+
+    stager.addStage({
+        id: 'game',
+        steps: ['decision', 'results']
+    });
 
     stager
         .next('instructions')
         .next('quiz')
-        .repeat({
-            id: 'game',
-            steps: ['decision', 'results']
-        }, settings.REPEAT)
-        //.stepBlock(0)
-        //.step('decision')
-        //.step('results')
+        .repeat('game', settings.REPEAT)
+    //         .repeat({
+    //             id: 'game',
+    //             steps: ['decision', 'results']
+    //         }, settings.REPEAT)
+    //.stepBlock(0)
+    //.step('decision')
+    //.step('results')
         .next('end')
         .gameover();
 

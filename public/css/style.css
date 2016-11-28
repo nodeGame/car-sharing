@@ -7,7 +7,7 @@ div#container {
 
 .subtitle {
     font-size: 20px;
-    font-style: italics;
+    font-style: italics; /* should be italic */
 }
 
 /* Instructions */
