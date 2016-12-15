@@ -13,17 +13,12 @@ module.exports = {
     enabled: true, // [false] Default: TRUE.
 
     // Path the requirement room logic.
-    logicPath: './requirements.room.js',
+    // logicPath: './requirements.room.js',
 
     // Future option. Not available now. Path to login page in `public/`
-    page: 'requirements.htm',
-    
-    // Optional. Maximum time to pass the tests of all requirements.
-    maxExecTime: 8000,
+    // page: 'requirements.htm',
 
-    // Optional. Which browsers are excluded.
-    excludeBrowsers: {
-        browser: 'netscape'
-    }
+    // Optional. Maximum time to pass the tests of all requirements.
+    maxExecTime: 8000
 
 };

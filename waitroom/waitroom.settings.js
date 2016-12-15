@@ -8,6 +8,9 @@
  */
 module.exports = {
 
+    // Exec mode.
+    EXECUTION_MODE: 'WAIT_FOR_N_PLAYERS',
+
     // How many clients must connect before groups are formed.
     POOL_SIZE: 3,
 
