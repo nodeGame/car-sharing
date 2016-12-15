@@ -36,20 +36,24 @@ module.exports = {
     // Conversion rate ECU to DOLLARS.
     exchangeRate: 0.001,
 
-    timer: {
+    TIMER: {
 
         instr1: 90000,
         instr2: 60000,
         quiz: 90000,
-        decision: function() {
-            if (this.getCurrentGameStage().round === 1) return 45000;
-            return 15000;
+        decision: {
+            milliseconds: function() {
+                if (this.getCurrentGameStage().round === 1) return 45000;
+                return 15000;
+            },
+            timeup: function() {
+                node.game.randomDecision();
+            }
         },
         results: function() {
             if (this.getCurrentGameStage().round === 1) return 20000;
             return 8000;
         }
-
     },
 
     // Treatments definition.

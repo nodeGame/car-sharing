@@ -101,13 +101,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.visualRound = node.widgets.append('VisualRound', header);
         this.visualTimer = node.widgets.append('VisualTimer', header);
         // Copy reference to have timeup stored on `done`. (for the time being).
-        this.timer = this.visualTimer;
+        // this.timer = this.visualTimer;
 
-        node.on('get.pushGame', function() {
-            console.log('BEING PUSHED!');
-            node.game.visualTimer.doTimeUp();
-            return 'ok!';
-        });
+//         node.on('get.pushGame', function() {
+//             console.log('BEING PUSHED!');
+//             node.game.visualTimer.doTimeUp();
+//             return 'ok!';
+//         });
 
     });
 
@@ -157,8 +157,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 });
 
             });
-        },
-        timer: settings.timer.instr1
+        }
     });
 
 
@@ -196,8 +195,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 });
 
             });
-        },
-        timer: settings.timer.instr2
+        }
     });
 
     stager.extendStep('quiz', {
@@ -237,8 +235,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 console.log('Quiz');
             });
-        },
-        timer: settings.timer.quiz
+        }
     });
 
     stager.extendStep('decision', {
@@ -302,12 +299,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             });
 
-        },
-        timer: {
-            milliseconds: settings.timer.decision,
-            timeup: function() {
-                node.game.randomDecision();
-            }
         }
     });
 
@@ -402,8 +393,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 });
             });
-        },
-        timer: settings.timer.results
+        }
     });
 
     stager.extendStep('end', {

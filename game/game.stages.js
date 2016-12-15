@@ -11,23 +11,6 @@
 
 module.exports = function(stager, settings) {
 
-    stager.addStep({
-        id: 'instr1',
-        cb: function() {}
-    });
-    stager.addStep({
-        id: 'instr2',
-        cb: function() {}
-    });
-    stager.addStep({
-        id: 'decision',
-        cb: function() {}
-    });
-    stager.addStep({
-        id: 'results',
-        cb: function() {}
-    });
-
     stager.addStage({
         id: 'instructions',
         steps: ['instr1', 'instr2']
@@ -42,18 +25,11 @@ module.exports = function(stager, settings) {
         .next('instructions')
         .next('quiz')
         .repeat('game', settings.REPEAT)
-    //         .repeat({
-    //             id: 'game',
-    //             steps: ['decision', 'results']
-    //         }, settings.REPEAT)
-    //.stepBlock(0)
-    //.step('decision')
-    //.step('results')
         .next('end')
         .gameover();
 
 
-    // Modifty the stager to skip some stages.
+    // Modify the stager to skip some stages.
 
     // stager.skip('instructions');
     stager.skip('quiz');
