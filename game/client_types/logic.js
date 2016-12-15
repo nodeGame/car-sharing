@@ -23,23 +23,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     var dk = require('descil-mturk')();
 
-//    var currPushGame;
-
     // Must implement the stages here.
-
-//     node.events.game.on('PLAYING', function() {
-//         var stage, timer;
-//         console.log('Clearing push game function.');
-//         if (currPushGame) clearTimeout(currPushGame);
-//         stage = node.game.getCurrentStepObj().id;
-//         if (stage === 'end') return;
-//         console.log('Setting push game function.');
-//
-//         timer = settings.timer[stage];
-//         if ('function' === typeof timer) timer = timer.call(node.game);
-//
-//         currPushGame = setTimeout(pushGame, (timer + 10000));
-//     });
 
     // Increment counter.
     counter = counter ? ++counter : settings.SESSION_ID || 1;
@@ -54,26 +38,26 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         node.on.preconnect(function(p) {
             var code, disconStage, reconStage, payoff;
 
-            console.log('Oh...somebody reconnected!', p.id);
-            reconStage = node.player.stage;
-
-            gameRoom.setupClient(p.id);
-
-            // Start the game on the reconnecting client.
-            node.remoteCommand('start', p.id, { step: false });
-            // Add player to player list.
-            node.game.pl.add(p);
-
-            code = channel.registry.getClient(p.id);
-
-//             if (code.disconnectStage === reconStage &&
-//                 code.doneOnDisconnect) {
-//
-//                 reconStage = { targetStep: reconStage, willBeDone: true };
-//             }
-
-            // Send player to the current stage.
-            node.remoteCommand('goto_step', p.id, reconStage);
+ //             console.log('Oh...somebody reconnected!', p.id);
+ //             reconStage = node.player.stage;
+ //
+ //             gameRoom.setupClient(p.id);
+ //
+ //             // Start the game on the reconnecting client.
+ //             node.remoteCommand('start', p.id, { step: false });
+ //             // Add player to player list.
+ //             node.game.pl.add(p);
+ //
+ //             code = channel.registry.getClient(p.id);
+ //
+ // //             if (code.disconnectStage === reconStage &&
+ // //                 code.doneOnDisconnect) {
+ // //
+ // //                 reconStage = { targetStep: reconStage,willBeDone: true };
+ // //             }
+ //
+ //             // Send player to the current stage.
+ //             node.remoteCommand('goto_step', p.id, reconStage);
 
             // If we are in the last step.
             if (node.game.compareCurrentStep('end') === 0) {
@@ -83,28 +67,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
         });
 
+        // Remove default (equivalent to node.off (without warnings).
+        node.events.ng.off('in.set.DATA');
 
-        // Replace default PDISCONNECT handler.
-//         node.events.ng.off('in.say.PDISCONNECT');
-//
-//         node.on.pdisconnect(function(p) {
-//             var code;
-//             // Mark the stage of disconnection.
-//             code = channel.registry.getClient(p.id);
-//             code.disconnectStage = node.player.stage;
-//            code.doneOnDisconnect = node.game.pl.get(p.id).stageLevel === 100;
-//             node.game.pl.remove(p.id);
-//             // Default handler.
-//             if (node.game.shouldStep()) node.game.step();
-//             node.emit('UPDATED_PLIST');
-//         });
-
-        node.on.pdisconnect(function(p) {
-            console.log('Oh...somebody disconnected ', p.id);
-        });
-
-        // Remove default.
-        node.off('in.set.DATA');
         node.game.memory.index('plage', function(o) {
             return new GameStage(o.stage).toString() + '_' + o.player
         });
