@@ -91,7 +91,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         frame = W.generateFrame();
 
         // Add widgets.
-        this.visualRound = node.widgets.append('VisualRound', header);
+        this.visualRound = node.widgets.append('VisualRound', header, {
+            title: false
+        });
         this.visualTimer = node.widgets.append('VisualTimer', header);
         // Copy reference to have timeup stored on `done`. (for the time being).
         // this.timer = this.visualTimer;
@@ -446,5 +448,5 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.socket.disconnect();
             window.close();
         }, 60000);
-    });
+    });1
 };
