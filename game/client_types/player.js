@@ -1,6 +1,6 @@
 /**
  * # Player type implementation of the game stages
- * Copyright(c) 2015 Stefano Balietti <futur.dorko@gmail.com>
+ * Copyright(c) 2017 Stefano Balietti <futur.dorko@gmail.com>
  * MIT Licensed
  *
  * Each client type must extend / implement the stages defined in `game.stages`.
@@ -15,8 +15,6 @@ var stepRules = ngc.stepRules;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
-    var game;
-
     stager.setDefaultGlobals({ totPlayers: gameRoom.game.waitroom.GROUP_SIZE });
 
     stager.setOnInit(function() {
@@ -24,11 +22,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // Initialize the client.
 
         var header, frame;
-
-//         node.on('SOCKET_DISCONNECT', function() {
-//             alert('Disconnection from server detected.\n' +
-//                   'You might not be able to send and receive messages.');
-//         });
 
         node.game.lastDepartureTime = null;
         node.game.lastDecision = null;
@@ -102,12 +95,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.visualTimer = node.widgets.append('VisualTimer', header);
         // Copy reference to have timeup stored on `done`. (for the time being).
         // this.timer = this.visualTimer;
-
-//         node.on('get.pushGame', function() {
-//             console.log('BEING PUSHED!');
-//             node.game.visualTimer.doTimeUp();
-//             return 'ok!';
-//         });
 
     });
 
@@ -315,19 +302,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var chosenBus, chosenCar, avgDepartureCar, button;
                 var spanAvgDep;
 
-                // chosenBus = W.getElementById('chosen-bus');
-                // chosenCar = W.getElementById('chosen-car');
-                // avgDepartureCar = W.getElementById('average-car-departure');
 
                 choice = W.getElementById('choice');
                 departure = W.getElementById('departure');
                 arrivalExpected = W.getElementById('arrival-expected');
                 arrivalActual = W.getElementById('arrival-actual');
                 payoff = W.getElementById('payoff');
-
-                // if (node.game.settings.info) {
-                // spanAvgDep = W.getElementById('span-avg-car-departure');
-                // }
 
                 button = W.getElementById('continue');
 
@@ -337,17 +317,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     results = msg.data;
                     f = node.game.formatDepartureTime;
-                    // console.log('RESULTS ', results);
-
-                    // chosenBus.innerHTML = results.global.totBus;
-                    // chosenCar.innerHTML = results.global.totCar;
-
-//                     if (node.game.settings.info) {
-//                         depTime = results.global.avgDepartureCar === 'NA' ?
-//                             'N/A' : f(results.global.avgDepartureCar);
-//                         avgDepartureCar.innerHTML = depTime;
-//                         spanAvgDep.style.display = '';
-//                     }
 
                     if (results.decision === 'car') {
                         expectedTime = actualTime = f(results.departure, 1);
@@ -478,8 +447,4 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             window.close();
         }, 60000);
     });
-
-    game = setup;
-    game.plot = stager.getState();
-    return game;
 };
