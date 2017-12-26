@@ -1,6 +1,6 @@
 /**
  * # Logic type implementation of the game stages
- * Copyright(c) 2015 Stefano Balietti <futur.dorko@gmail.com>
+ * Copyright(c) 2017 Stefano Balietti <futur.dorko@gmail.com>
  * MIT Licensed
  *
  * http://www.nodegame.org
@@ -21,8 +21,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     var node = gameRoom.node;
     var channel =  gameRoom.channel;
 
-    var dk = require('descil-mturk')();
-
     // Must implement the stages here.
 
     // Increment counter.
@@ -37,27 +35,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         node.on.preconnect(function(p) {
             var code, disconStage, reconStage, payoff;
-
- //             console.log('Oh...somebody reconnected!', p.id);
- //             reconStage = node.player.stage;
- //
- //             gameRoom.setupClient(p.id);
- //
- //             // Start the game on the reconnecting client.
- //             node.remoteCommand('start', p.id, { step: false });
- //             // Add player to player list.
- //             node.game.pl.add(p);
- //
- //             code = channel.registry.getClient(p.id);
- //
- // //             if (code.disconnectStage === reconStage &&
- // //                 code.doneOnDisconnect) {
- // //
- // //                 reconStage = { targetStep: reconStage,willBeDone: true };
- // //             }
- //
- //             // Send player to the current stage.
- //             node.remoteCommand('goto_step', p.id, reconStage);
 
             // If we are in the last step.
             if (node.game.compareCurrentStep('end') === 0) {
@@ -213,20 +190,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             var payoffs, payoff;
             payoffs = node.game.pl.map(doCheckout);
-
-            node.game.memory.save(channel.getGameDir() + 'data/data_' +
-                                  node.nodename + '.json');
+            node.game.memory.save('data_' + node.nodename + '.json');
             postPayoffs(payoffs);
         },
         stepRule: stepRules.SOLO,
     });
 
-    // Here we group together the definition of the game logic.
-    return {
-        nodename: 'lgc' + counter,
-        // Extracts, and compacts the game plot that we defined above.
-        plot: stager.getState()
-    };
 
     // Helper functions.
 
@@ -278,67 +247,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     }
 
     function postPayoffs(payoffs) {
-        dk.postPayoffs(payoffs, function(err, response, body) {
-            if (err) {
-                node.err("adjustPayoffAndCheckout: " +
-                         "dk.postPayoff: " + err);
-            };
-        });
+        // TODO.
     }
-
-//     function pushGame() {
-//         console.log('Checking if we need to push...');
-//         node.game.pl.each(function(p) {
-//             var stage;
-//             if (p.stageLevel !== 100) {
-//                 console.log('Push needed ', p.id);
-//                 stage = p.stage;
-//                 node.get('pushGame',
-//                          function(value) {
-//                              checkIfPushWorked(p);
-//                          },
-//                          p.id,
-//                          {
-//                              timeoutCb: function() {
-//                                  // No reply to GET, disconnect client.
-//                                  console.log('No reply from PUSH.');
-//                                  forceDisconnect(p);
-//                              },
-//                              timeout: 4000,
-//                              executeOnce: true
-//                          });
-//             }
-//         });
-//     }
-//
-//     function forceDisconnect(p) {
-//         var socket;
-//         console.log('disconnecting ', p.id);
-//         socket = channel.playerServer.socketManager
-//             .clients[p.id];
-//         socket.disconnect(p.sid);
-//     }
-//
-//     function checkIfPushWorked(p) {
-//         var stage;
-//         console.log('check if push worked ', p.id);
-//         stage = {
-//             stage: p.stage.stage, step: p.stage.step, round: p.stage.round
-//         };
-//         setTimeout(function() {
-//             var pp;
-//             if (node.game.pl.exist(p.id)) {
-//                 pp = node.game.pl.get(p.id);
-//                 if (GameStage.compare(pp.stage, stage) === 0) {
-//                     console.log('push did not work ', p.id);
-//                     // console.log(pp.stage, p.stage);
-//                     forceDisconnect(pp);
-//                 }
-//                 else {
-//                     console.log('push worked ', p.id);
-//                 }
-//             }
-//         }, 5000);
-//     }
 
 };
