@@ -14,17 +14,12 @@ var J = require('JSUS').JSUS;
 var stepRules = ngc.stepRules;
 var GameStage = ngc.GameStage;
 
-var counter = 0;
-
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     var node = gameRoom.node;
     var channel =  gameRoom.channel;
 
     // Must implement the stages here.
-
-    // Increment counter.
-    counter = counter ? ++counter : settings.SESSION_ID || 1;
 
     stager.setOnInit(function() {
         // Initialize the client.
