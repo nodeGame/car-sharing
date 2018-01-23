@@ -55,5 +55,7 @@ module.exports = {
         timeOut += "<br></h3>";
 
         this.bodyDiv.innerHTML = timeOut;
-    }
+    },
+    
+    PLAY_WITH_BOT_OPTION: true
 };
