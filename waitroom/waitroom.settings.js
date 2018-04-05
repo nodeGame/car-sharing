@@ -57,5 +57,5 @@ module.exports = {
         this.bodyDiv.innerHTML = timeOut;
     },
     
-    PLAY_WITH_BOT_OPTION: true
+    ALLOW_PLAY_WITH_BOTS: true
 };

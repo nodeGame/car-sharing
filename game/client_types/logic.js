@@ -30,12 +30,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         node.on.preconnect(function(p) {
             var code, disconStage, reconStage, payoff;
-
+            // DISABLED.
+            return;
             // If we are in the last step.
             if (node.game.compareCurrentStep('end') === 0) {
                 payoff = doCheckout(p);
                 // If player was not checkout yet, do it.
-                if (payoff) postPayoffs([payoff]);
+                // if (payoff) postPayoffs([payoff]);
             }
         });
 
@@ -94,7 +95,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             e.payoff = payoff;
             // Keep track of sum of payoffs and number or rounds played.
             player = channel.registry.getClient(e.player);
-            player.payoff = (player.payoff || 0) + payoff;
+            
+            player.win = (player.win || 0) + payoff;
             player.rounds = (player.rounds || 0) + 1;
         };
 
@@ -183,66 +185,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('end', {
         cb: function() {
-            var payoffs, payoff;
-            payoffs = node.game.pl.map(doCheckout);
-            node.game.memory.save('data_' + node.nodename + '.json');
-            postPayoffs(payoffs);
-        },
-        stepRule: stepRules.SOLO,
+
+            console.log('FINAL PAYOFF PER PLAYER');
+            console.log('***********************');
+
+            gameRoom.computeBonus({
+                say: true,   // default false
+                dump: true,  // default false
+                print: true  // default false
+                // Optional. Pre-process the results of each player.
+                // cb: function(info, player) {
+                // // The sum of partial results is diplayed before the total.
+                //         info.partials = [ 10, -1, 7];
+                // }
+            });
+            
+            // Dump all memory.
+            node.game.memory.save('memory_all.json');
+        }
     });
-
-
-    // Helper functions.
-
-    /**
-     * ## doCheckout
-     *
-     * Checks if a player has played enough rounds, and communicates the outcome
-     *
-     * @param {object} p A player object with valid id
-     *
-     * @return {object} A payoff object as required by descil-mturk.postPayoffs.
-     *   If the player has not completed enough rounds returns undefined.
-     */
-    function doCheckout(p) {
-        var code;
-        code = channel.registry.getClient(p.id);
-        if (code.checkout) {
-            node.remoteAlert('Hi! It looks like you have already ' +
-                             'completed this game.', p.id);
-            return;
-        }
-        // Computing payoff and USD.
-        code.checkout = true;
-
-        // Must have played at least half of the rounds.
-        if ((code.rounds || 0) < Math.floor(settings.REPEAT / 2)) {
-            code.fail = true;
-        }
-        else {
-            code.payoff = code.payoff || 0;
-            code.usd = parseFloat(
-                ((code.payoff * settings.exchangeRate).toFixed(2)),
-                10);
-        }
-
-        // Sending info to player.
-        node.say('win', p.id, {
-            ExitCode: code.ExitCode,
-            fail: code.fail,
-            payoff: code.payoff,
-            usd: code.usd
-        });
-
-        return {
-            AccessCode: p.id,
-            Bonus: code.usd,
-            BonusReason: 'Full bonus.'
-        };
-    }
-
-    function postPayoffs(payoffs) {
-        // TODO.
-    }
-
 };
+

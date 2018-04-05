@@ -16,6 +16,7 @@ auth/descil.conf.js
 data/*.csv
 data/*.json
 data/*.js
+data/
 
 node_modules
 
