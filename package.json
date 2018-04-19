@@ -1,11 +1,11 @@
 {
     "name": "car-sharing",
     "version": "4.0.0",
-    "description": "Coordination game in time and space framed as car sharing vs public transport choice",
+    "description": "Coordination game in time and space framed as car sharing vs public transport choice.",
     "card": {
       "url": "https://github.com/nodeGame/car-sharing",
       "publication": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2802049",
-      "description": "Coordination game in time and space framed as car sharing vs public transport choice",
+      "description": "Coordination game in time and space framed as car sharing vs public transport choice.",
       "icon": "directions_car"
     },
     "author": "Stefano Balietti <futur.dorko@gmail.com>",
