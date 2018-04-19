@@ -20,12 +20,9 @@ module.exports = {
 
     // Variables shared by all treatments.
 
-    // Session counter.
-    SESSION_ID: 12,
-
     // Numnber of game rounds repetitions.
     // TODO: if the value is changed the QUIZ page needs to be updated.
-    REPEAT: 30,
+    REPEAT: 5,
 
     // Show up fee.
     showupFee: 1, // 27.07 -> 1.2
@@ -33,9 +30,13 @@ module.exports = {
     // Slope of the payoff curve.
     slopePayoff: 1,
 
-    // Conversion rate ECU to DOLLARS.
+    // Conversion rate ECU to DOLLARS (for instr).
     exchangeRate: 0.001,
 
+    // TODO: update, use only one.
+    // Divider ECU / DOLLARS *
+    EXCHANGE_RATE: 0.001,
+    
     TIMER: {
 
         instr1: 90000,
