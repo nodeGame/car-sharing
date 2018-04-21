@@ -1,7 +1,7 @@
 {
     "name": "car-sharing",
-    "version": "4.0.0",
-    "description": "Coordination game in time and space framed as car sharing vs public transport choice.",
+    "version": "1.0.0",
+    "description": "Coordination game in time and space for nodeGame.",
     "card": {
       "url": "https://github.com/nodeGame/car-sharing",
       "publication": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2802049",
@@ -14,6 +14,15 @@
     "devDependencies": {
       "mocha": ">= 2.1.0",
       "should": ">= 5.0.0"
+    },
+    "keywords": [
+        "congestion game",
+        "nodegame",
+        "game theory",
+        "behavioral"
+    ],
+    "engines": {
+      "nodegame": ">= 4.0.0"
     },
     "scripts": {
        "test": "./node_modules/.bin/mocha ./test/test.*.js"
