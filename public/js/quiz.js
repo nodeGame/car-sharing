@@ -42,6 +42,8 @@
             results.correct = true;
         }
         else {
+            // Make sure that the frame height is correct: "Wrong..." text
+            // push it below.            
             W.adjustFrameHeight();
         }
         return results;
