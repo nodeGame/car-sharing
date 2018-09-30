@@ -1,6 +1,6 @@
 /**
  * # Waiting Room settings
- * Copyright(c) 2015 Stefano Balietti <futur.dorko@gmail.com>
+ * Copyright(c) 2018 Stefano Balietti <futur.dorko@gmail.com>
  * MIT Licensed
  *
  * http://www.nodegame.org
@@ -57,5 +57,9 @@ module.exports = {
         this.bodyDiv.innerHTML = timeOut;
     },
     
-    ALLOW_PLAY_WITH_BOTS: true
+    ALLOW_PLAY_WITH_BOTS: true,
+
+
+    ALLOW_SELECT_TREATMENT: true
+    
 };
