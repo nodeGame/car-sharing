@@ -34,11 +34,17 @@
             }
         });
 
-        document.getElementById('answers_counter').innerHTML = counter + ' / ' + document.forms.length;
+        document.getElementById('answers_counter').innerHTML =
+            counter + ' / ' + document.forms.length;
 
         if (counter === document.forms.length) {
             submitButton.disabled = true;
             results.correct = true;
+        }
+        else {
+            // Make sure that the frame height is correct: "Wrong..." text
+            // push it below.            
+            W.adjustFrameHeight();
         }
         return results;
     }

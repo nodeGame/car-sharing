@@ -26,4 +26,5 @@ module.exports = {
     MAX_WAIT_TIME: 600000,
     
     ALLOW_PLAY_WITH_BOTS: true
+    
 };

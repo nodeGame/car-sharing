@@ -1,6 +1,6 @@
 /**
  * # Game settings definition file
- * Copyright(c) 2015 Stefano Balietti <futur.dorko@gmail.com>
+ * Copyright(c) 2018 Stefano Balietti <futur.dorko@gmail.com>
  * MIT Licensed
  *
  * The variables in this file will be sent to each client and saved under:
@@ -56,18 +56,16 @@ module.exports = {
 
     treatments: {
 
-// To try.
-
-// 50/40
-
         noinfo_car25_p5040: {
+            description: 'Few cars, low payoff bus',
             info: false,
             carLevel: 0.25,
             carY: 40,
             busY: 50
         },
 
-        noinfo_car50_p5040: {
+        noinfo_car50_p5040: {            
+            description: 'Average quantity of cars, low payoff bus',
             info: false,
             carLevel: 0.5,
             carY: 40,
@@ -75,87 +73,35 @@ module.exports = {
         },
 
         noinfo_car75_p5040: {
+            description: 'Lots of cars, low payoff bus',
             info: false,
             carLevel: 0.75,
             carY: 40,
             busY: 50
         },
 
-// 50/30
-
-        noinfo_car25_p5030: {
+        noinfo_car25_p7040: {
+            description: 'Few cars, high payoff bus',
             info: false,
             carLevel: 0.25,
-            carY: 30,
-            busY: 50
+            carY: 40,
+            busY: 70
         },
 
-        noinfo_car50_p5030: {
+        noinfo_car50_p7040: {            
+            description: 'Average quantity of cars, high payoff bus',
             info: false,
             carLevel: 0.5,
-            carY: 30,
-            busY: 50
+            carY: 40,
+            busY: 70
         },
 
-        noinfo_car75_p5030: {
+        noinfo_car75_p7040: {
+            description: 'Lots of cars, high payoff bus',
             info: false,
             carLevel: 0.75,
-            carY: 30,
-            busY: 50
-        },
-
-
-// Tried on 27/07/2015
-
-// // 60/40
-//
-//         noinfo_car25_p6040: {
-//             info: false,
-//             carLevel: 0.25,
-//             carY: 40,
-//             busY: 60
-//         },
-//
-//         noinfo_car50_p6040: {
-//             info: false,
-//             carLevel: 0.5,
-//             carY: 40,
-//             busY: 60
-//         },
-//
-//         noinfo_car75_p6040: {
-//             info: false,
-//             carLevel: 0.75,
-//             carY: 40,
-//             busY: 60
-//         },
-//
-// // 70/30
-//
-//         noinfo_car25_p7030: {
-//             info: false,
-//             carLevel: 0.25,
-//             carY: 30,
-//             busY: 70
-//         },
-//
-//         noinfo_car50_p7030: {
-//             info: false,
-//             carLevel: 0.5,
-//             carY: 30,
-//             busY: 70
-//         },
-//
-//         noinfo_car75_p7030: {
-//             info: false,
-//             carLevel: 0.75,
-//             carY: 30,
-//             busY: 70
-//         },
-
-
-///
-
-
+            carY: 40,
+            busY: 70
+        }
     }
 };
