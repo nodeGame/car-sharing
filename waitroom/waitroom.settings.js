@@ -1,6 +1,6 @@
 /**
  * # Waiting Room settings
- * Copyright(c) 2015 Stefano Balietti <futur.dorko@gmail.com>
+ * Copyright(c) 2019 Stefano Balietti <futur.dorko@gmail.com>
  * MIT Licensed
  *
  * http://www.nodegame.org
@@ -12,10 +12,10 @@ module.exports = {
     EXECUTION_MODE: 'WAIT_FOR_N_PLAYERS',
 
     // How many clients must connect before groups are formed.
-    POOL_SIZE: 3,
+    POOL_SIZE: 5,
 
     // The size of each group.
-    GROUP_SIZE: 3,
+    GROUP_SIZE: 5,
 
     // Treatment assigned to groups.
     // If left undefined, a random treatment will be selected.
@@ -24,38 +24,6 @@ module.exports = {
 
     // Maximum waiting time.
     MAX_WAIT_TIME: 600000,
-
-    // Optional callback function to be executed when the timeout for the
-    // maximum waiting time of a player in the waiting room expires.
-    ON_TIMEOUT: function(data) {
-        // Do something.
-        var timeOut;
-
-        // Enough Time passed, not enough players connected.
-        if (data.over === 'Time elapsed!!!') {
-
-            timeOut = "<h3 align='center'>Thank you for your patience.<br>";
-            timeOut += "Unfortunately, there are not enough participants in ";
-            timeOut += "your group to start the experiment.<br>";
-        }
-
-        // Too much time passed, but no message from server received.
-        else {
-            timeOut = "An error has occurred. You seem to be ";
-            timeOut += "waiting for too long. Please look for a HIT called ";
-            timeOut += "<strong>ETH Descil Trouble Ticket</strong> and file ";
-            timeOut += "a new trouble ticket reporting your experience."
-        }
-
-        if (data.exit) {
-            timeOut += "<br>Please submit the HIT using this exit code: " +
-                data.exit;
-        }
-
-        timeOut += "<br></h3>";
-
-        this.bodyDiv.innerHTML = timeOut;
-    },
     
     ALLOW_PLAY_WITH_BOTS: true
 };
