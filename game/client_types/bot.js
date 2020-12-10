@@ -11,7 +11,7 @@ var J = ngc.JSUS;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
-    
+
     var channel = gameRoom.channel;
     var logic = gameRoom.node;
 
@@ -26,7 +26,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             if (id === 'decision') {
                 node.on('PLAYING', function() {
-                    node.timer.randomExec(function() {
+                    node.timer.random.exec(function() {
                         var decision, departure;
                         if (Math.random(0,1) < 0.5) {
                             decision = 'car';
@@ -36,18 +36,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                             decision = 'bus';
                             departure = 0;
                         }
-                        
+
                         // Mark the end of the round, and send results to server.
                         node.done({
                             departureTime: departure,
                             decision: decision,
                             order: 0
                         });
-                    });       
+                    });
                 });
             }
             else {
-                node.timer.randomDone(2000);
+                node.timer.random(2000).done;
             }
         };
         return o;
