@@ -9,15 +9,15 @@
 
 "use strict";
 
-var ngc = require('nodegame-client');
-var J = require('JSUS').JSUS;
-var stepRules = ngc.stepRules;
-var GameStage = ngc.GameStage;
+let ngc = require('nodegame-client');
+let J = require('JSUS').JSUS;
+let stepRules = ngc.stepRules;
+let GameStage = ngc.GameStage;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
-    var node = gameRoom.node;
-    var channel =  gameRoom.channel;
+    let node = gameRoom.node;
+    let channel =  gameRoom.channel;
 
     // Must implement the stages here.
 
@@ -29,12 +29,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.slopeCarMiss = settings.carY / 60;
 
         node.on.preconnect(function(p) {
-            var code, disconStage, reconStage, payoff;
+            //var code, disconStage, reconStage, payoff;
             // DISABLED.
             return;
             // If we are in the last step.
             if (node.game.compareCurrentStep('end') === 0) {
-                payoff = doCheckout(p);
+                let payoff = doCheckout(p);
                 // If player was not checkout yet, do it.
                 // if (payoff) postPayoffs([payoff]);
             }
@@ -47,7 +47,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             return new GameStage(o.stage).toString() + '_' + o.player
         });
         node.on('in.set.DATA', function(msg) {
-            var o = msg.data;
+            let o = msg.data;
 
             // Remove any other SET DONE in the same stage by the same player.
             if (o.done) {
@@ -74,9 +74,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         };
 
         this.computePayoff = function(e) {
-            var payoff, s;
-            var player;
-            s = node.game.settings;
+            //var payoff, s;
+            let payoff = 0;
+            //var player;
+            let s = node.game.settings;
             if (e.decision === 'car') {
                 if (e.gotCar) {
                     payoff = s.carY + (node.game.slopeCar * e.departureTime);
@@ -94,28 +95,28 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
             e.payoff = payoff;
             // Keep track of sum of payoffs and number or rounds played.
-            player = channel.registry.getClient(e.player);
-            
+            let player = channel.registry.getClient(e.player);
+
             player.win = (player.win || 0) + payoff;
             player.rounds = (player.rounds || 0) + 1;
         };
 
         this.getResults = function(stage) {
-            var previousStage, globalResults, results;
-            var carCounter, carLimit;
+            //var previousStage, globalResults, results;
+            //var carCounter, carLimit;
 
-            carLimit = Math.floor(settings.carLevel * node.game.pl.size()) || 1;
+            let carLimit = Math.floor(settings.carLevel * node.game.pl.size()) || 1;
 
             console.log('car level: ', settings.carLevel);
             console.log('car limit: ', carLimit);
 
-            results = {
+            let results = {
                 totCar: 0,
                 totBus: 0,
                 avgDepartureCar: 0
             };
 
-            carCounter = 0;
+            let carCounter = 0;
 
             // Sort them by departure time.
             node.game.memory.stage[stage].sort();
@@ -168,13 +169,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('results', {
         cb: function() {
 
-            var results, previousStage;
+            //var results, previousStage;
 
-            previousStage = node.game.plot.previous(
+            let previousStage = node.game.plot.previous(
                 node.game.getCurrentGameStage()
             );
 
-            results = this.getResults(previousStage);
+            let results = this.getResults(previousStage);
 
             console.log(results);
 
@@ -199,10 +200,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 //         info.partials = [ 10, -1, 7];
                 // }
             });
-            
+
             // Dump all memory.
             node.game.memory.save('memory_all.json');
         }
     });
 };
-
