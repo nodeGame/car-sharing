@@ -27,9 +27,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             if (id === 'decision') {
                 node.on('PLAYING', function() {
                     node.timer.random.exec(function() {
-                        //var decision, departure;
-                        let decision = '';
-                        let departure = 0;
+                        let decision, departure;
+
                         if (Math.random(0,1) < 0.5) {
                             decision = 'car';
                             departure = J.randomInt(-1,60);
