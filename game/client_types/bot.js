@@ -6,8 +6,8 @@
  * http://www.nodegame.org
  * ---
  */
-let ngc = require('nodegame-client');
-let J = ngc.JSUS;
+const ngc = require('nodegame-client');
+const J = ngc.JSUS;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
