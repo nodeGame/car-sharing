@@ -9,10 +9,10 @@
 
 "use strict";
 
-let ngc = require('nodegame-client');
-let J = require('JSUS').JSUS;
-let stepRules = ngc.stepRules;
-let GameStage = ngc.GameStage;
+const ngc = require('nodegame-client');
+const J = require('JSUS').JSUS;
+const stepRules = ngc.stepRules;
+const GameStage = ngc.GameStage;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
@@ -29,7 +29,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.slopeCarMiss = settings.carY / 60;
 
         node.on.preconnect(function(p) {
-            //var code, disconStage, reconStage, payoff;
             // DISABLED.
             return;
             // If we are in the last step.
@@ -171,15 +170,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             //var results, previousStage;
 
-            let previousStage = node.game.plot.previous(
-                node.game.getCurrentGameStage()
-            );
+            let previousStep = node.game.getPreviousStep();
 
-            let results = this.getResults(previousStage);
+            let results = this.getResults(previousStep);
 
             console.log(results);
 
-            this.sendResults(previousStage, results);
+            this.sendResults(previousStep, results);
 
         }
     });
