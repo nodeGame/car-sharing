@@ -6,28 +6,29 @@
  * http://www.nodegame.org
  * ---
  */
-var ngc = require('nodegame-client');
-var J = ngc.JSUS;
+const ngc = require('nodegame-client');
+const J = ngc.JSUS;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 
-    var channel = gameRoom.channel;
-    var logic = gameRoom.node;
+    let channel = gameRoom.channel;
+    let logic = gameRoom.node;
 
     stager.extendAllSteps(function(o) {
         o.cb = function() {
-            var node, stepObj, id;
-            stepObj = this.getCurrentStepObj();
-            id = stepObj.id;
-            node = this.node;
+            //var node, stepObj, id;
+            let stepObj = this.getCurrentStepObj();
+            let id = stepObj.id;
+            let node = this.node;
 
             // We do not actually play.
 
             if (id === 'decision') {
                 node.on('PLAYING', function() {
                     node.timer.random.exec(function() {
-                        var decision, departure;
+                        let decision, departure;
+
                         if (Math.random(0,1) < 0.5) {
                             decision = 'car';
                             departure = J.randomInt(-1,60);
