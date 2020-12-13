@@ -10,11 +10,11 @@
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
-    var ngc =  require('nodegame-client');
-    
-    var game, stager;
-    
-    game = gameRoom.getClientType('player');
+    const ngc =  require('nodegame-client');
+
+    var stager;
+
+    let game = gameRoom.getClientType('player');
     game.nodename = 'autoplay';
 
     game.env.allowTimeup = true;
@@ -42,7 +42,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
         }
     });
-    
+
 
     // Gameover will be executed only in 'auto' mode.
     stager.setOnGameOver(function() {
@@ -51,10 +51,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             window.close();
         }, 60000);
     });
-    
+
     return game;
 };
-
-
-
-
