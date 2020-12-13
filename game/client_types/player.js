@@ -48,7 +48,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
             node.game.lastDepartureTime = departure;
             node.game.decisionMade(decision);
-            setTimeout(function() {
+            node.timer.setTimeout(function() {
                 W.getElementById('decision').click();
             }, 2000);
         };
@@ -292,7 +292,5 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('PHANTOMJS EXITING');
         }
     });
-    
+
 };
-
-
