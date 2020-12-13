@@ -48,7 +48,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 });
             }
             else {
-                node.timer.random(2000).done;
+                node.timer.random(2000).done();
             }
         };
         return o;
