@@ -11,8 +11,6 @@
 
 const ngc = require('nodegame-client');
 const J = require('JSUS').JSUS;
-const stepRules = ngc.stepRules;
-const GameStage = ngc.GameStage;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
@@ -37,30 +35,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 // If player was not checkout yet, do it.
                 // if (payoff) postPayoffs([payoff]);
             }
-        });
-
-        // Remove default (equivalent to node.off (without warnings).
-        node.events.ng.off('in.set.DATA');
-
-        node.game.memory.index('plage', function(o) {
-            return new GameStage(o.stage).toString() + '_' + o.player
-        });
-        node.on('in.set.DATA', function(msg) {
-            let o = msg.data;
-
-            // Remove any other SET DONE in the same stage by the same player.
-            if (o.done) {
-                node.game.memory.plage.remove(msg.stage + '_' + msg.from);
-            }
-
-            // Decorate it.
-            o.player = msg.from;
-            o.stage = msg.stage;
-            o.treatment = treatmentName;
-            o.session = node.nodename;
-
-            // Add it to memory.
-            node.game.memory.insert(o);
         });
 
         // Sort: car first, and cars are sorted by departure time.
@@ -104,7 +78,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             //var previousStage, globalResults, results;
             //var carCounter, carLimit;
 
-            let carLimit = Math.floor(settings.carLevel * node.game.pl.size()) || 1;
+            let carLimit = Math.floor(settings.carLevel *
+                                      node.game.pl.size()) || 1;
 
             console.log('car level: ', settings.carLevel);
             console.log('car limit: ', carLimit);
@@ -139,13 +114,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         };
 
         this.sendResults = function(stage, globalResults) {
-            node.game.memory.stage[stage].each(function(e) {
-                node.say('results', e.player, {
+            node.game.memory.stage[stage].each(res => {
+                node.say('results', res.player, {
                     global: globalResults,
-                    decision: e.decision,
-                    gotCar: e.gotCar,
-                    departure: e.departureTime,
-                    payoff: e.payoff
+                    decision: res.decision,
+                    gotCar: res.gotCar,
+                    departure: res.departureTime,
+                    payoff: res.payoff
                 });
             });
         };

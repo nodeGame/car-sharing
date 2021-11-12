@@ -54,7 +54,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         };
 
         this.decisionMade = function(decision) {
-            var td, otherTd, button;
+            var td, otherTd;
             node.game.lastDecision = decision;
             if (decision === 'car') {
                 td = W.getElementById('td-car');
@@ -67,18 +67,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             // Departure time is changed by the slider for car.
             td.className = 'td-selected';
             otherTd.className = 'td-not-selected';
-            button = W.getElementById('decision');
             this.updateDecisionButton();
         };
 
         this.updateDecisionButton = function() {
-            var button, decision;
+            var button;
             button = W.getElementById('decision');
             button.disabled = false;
             if (node.game.lastDecision === 'car') {
                 button.value = 'I will take the ' +
-                    node.game.lastDecision
-                    + ' and leave at ' +
+                    node.game.lastDecision + ' and leave at ' +
                     this.formatDepartureTime(node.game.lastDepartureTime);
             }
             else {
@@ -173,10 +171,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             ]);
         },
         cb: function() {
-            var order, tdBus, tdCar, tr;
+            var order, tdBus, tr;
 
             tdBus = W.getElementById('td-bus');
-            tdCar = W.getElementById('td-car');
 
             // Shuffle tds.
             if (Math.random() < 0.5) {
@@ -217,82 +214,71 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('results', {
         cb: function() {
-            W.loadFrame('results.htm', function() {
-                var choice, departure, arrivalExpected, arrivalActual, payoff;
-                var chosenBus, chosenCar, avgDepartureCar, button;
-                var spanAvgDep;
 
-                choice = W.getElementById('choice');
-                departure = W.getElementById('departure');
-                arrivalExpected = W.getElementById('arrival-expected');
-                arrivalActual = W.getElementById('arrival-actual');
-                payoff = W.getElementById('payoff');
+            var choice, departure, arrivalExpected, arrivalActual, payoff;
+            var button;
 
-                button = W.getElementById('continue');
+            choice = W.getElementById('choice');
+            departure = W.getElementById('departure');
+            arrivalExpected = W.getElementById('arrival-expected');
+            arrivalActual = W.getElementById('arrival-actual');
+            payoff = W.getElementById('payoff');
 
-                node.on.data('results', function(msg) {
-                    var results, f;
-                    var expectedTime, actualTime, depTime;
+            button = W.getElementById('continue');
 
-                    results = msg.data;
-                    f = node.game.formatDepartureTime;
+            node.on.data('results', function(msg) {
+                var results, f;
+                var expectedTime, actualTime;
 
-                    if (results.decision === 'car') {
-                        expectedTime = actualTime = f(results.departure, 1);
-                        if (results.gotCar) {
-                            choice.innerHTML = 'Car';
-                        }
-                        else {
-                            choice.innerHTML = 'Car (<em>not available!</em>)';
-                            actualTime = f(results.departure, 2);
-                        }
+                results = msg.data;
+                f = node.game.formatDepartureTime;
+
+                if (results.decision === 'car') {
+                    expectedTime = actualTime = f(results.departure, 1);
+                    if (results.gotCar) {
+                        choice.innerHTML = 'Car';
                     }
                     else {
-                        choice.innerHTML = 'Bus';
-                        expectedTime = actualTime = '12:00';
+                        choice.innerHTML = 'Car (<em>not available!</em>)';
+                        actualTime = f(results.departure, 2);
                     }
-                    departure.innerHTML = f(results.departure);
+                }
+                else {
+                    choice.innerHTML = 'Bus';
+                    expectedTime = actualTime = '12:00';
+                }
+                departure.innerHTML = f(results.departure);
 
-                    arrivalExpected.innerHTML = expectedTime;
-                    arrivalActual.innerHTML = actualTime;
+                arrivalExpected.innerHTML = expectedTime;
+                arrivalActual.innerHTML = actualTime;
 
-                    payoff.innerHTML = results.payoff;
+                payoff.innerHTML = results.payoff;
 
-                    button.disabled = false;
-                    button.onclick = function() { node.done(); };
-                });
+                button.disabled = false;
+                button.onclick = function() { node.done(); };
             });
         }
     });
 
     stager.extendStep('end', {
-        frame: 'ended.html',
         // Another widget-step (see the mood step above).
         widget: {
             name: 'EndScreen',
-            root: 'root',
-            options: {
-                panel: false,
-                title: false,
-                exitCode: false,
-                email: {
-                    texts: {
-                        label: 'Enter your email (optional):'
-                    }
-                },
-                feedback: { minLength: 50 }
-            }
+            panel: false,
+            title: false,
+            exitCode: false,
+            email: {
+                texts: {
+                    label: 'Enter your email (optional):'
+                }
+            },
+            feedback: { minLength: 50 }
+
         },
         cb: function() {
-            // Reset visual timer (hack).
-            node.game.visualTimer.startTiming({ milliseconds: 5000 });
-            node.game.visualTimer.setToZero();
+            node.game.visualTimer.destroy();
             W.restoreOnleave();
-            // Msg for testing purposes, ignore it
-            console.log('PHANTOMJS EXITING');
         }
     });
-    
+
 };
-
-
